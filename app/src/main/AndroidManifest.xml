@@ -10,7 +10,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PolText">
         <activity android:name=".ui.auth.AuthActivity" />
-        <activity android:name=".ui.splash.SplashActivity">
+        <activity android:name=".ui.splash.SplashActivity"
+            android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
