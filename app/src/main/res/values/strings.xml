@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PolText</string>
+    <string name="input_email_hint">Email</string>
+    <string name="input_password_hint">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="register">Register</string>
+    <string name="profile_image">Profile Image</string>
 </resources>
