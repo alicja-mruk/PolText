@@ -1,20 +1,26 @@
-package com.put.pt.poltext.ui.auth
+package com.put.pt.poltext.screens.auth.register
 
-import androidx.appcompat.app.AppCompatActivity
+
 import android.os.Bundle
-import com.put.pt.poltext.databinding.ActivityAuthBinding
+import com.put.pt.poltext.databinding.ActivityRegisterBinding
+import com.put.pt.poltext.screens.BaseActivity
 
-class AuthActivity : AppCompatActivity() {
 
-    private var _binding: ActivityAuthBinding? = null
+class RegisterActivity : BaseActivity() {
+
+    private var _binding: ActivityRegisterBinding? = null
     private val binding get() = _binding!!
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        _binding = ActivityAuthBinding.inflate(layoutInflater)
+        _binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         supportActionBar?.hide()
     }
+
+
 
     override fun onDestroy() {
         super.onDestroy()

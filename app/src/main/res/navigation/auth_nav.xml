@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.put.pt.poltext.ui.auth.LoginFragment"
+        android:name="com.put.pt.poltext.screens.auth.login.LoginFragment"
         android:label="fragment_login"
-        tools:layout="@layout/fragment_login">
+        tools:layout="@layout/activity_login">
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
@@ -17,9 +17,9 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.put.pt.poltext.ui.auth.RegisterFragment"
+        android:name="com.put.pt.poltext.screens.auth.register.RegisterActivity"
         android:label="fragment_register"
-        tools:layout="@layout/fragment_register">
+        tools:layout="@layout/activity_register">
         <action
             android:id="@+id/action_registerFragment_to_loginFragment"
             app:destination="@id/loginFragment" />

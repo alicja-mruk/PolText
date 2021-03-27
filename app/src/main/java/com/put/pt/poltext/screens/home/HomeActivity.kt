@@ -1,4 +1,4 @@
-package com.put.pt.poltext.ui.home
+package com.put.pt.poltext.screens.home
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -5,4 +5,7 @@
     <string name="log_in">Log in</string>
     <string name="register">Register</string>
     <string name="profile_image">Profile Image</string>
+    <string name="create_account">No account? Create it here!</string>
+    <string name="name">Name</string>
+    <string name="enter_name_and_password">Please enter username and password</string>
 </resources>

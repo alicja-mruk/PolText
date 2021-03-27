@@ -56,9 +56,11 @@ dependencies {
     //Firebase authentication
     implementation 'com.google.firebase:firebase-auth'
 
-    // Firestore
-    implementation 'com.google.firebase:firebase-firestore-ktx'
+    // Database
+    implementation 'com.google.firebase:firebase-database-ktx'
 
+    //FireStorage
+    implementation 'com.google.firebase:firebase-storage'
 
     // Activity KTX for viewModels()
     implementation "androidx.activity:activity-ktx:1.2.2"
@@ -94,5 +96,7 @@ dependencies {
 
     //Scalable dimens
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
+    implementation 'net.yslibrary.keyboardvisibilityevent:keyboardvisibilityevent:3.0.0-RC3'
 
 }
