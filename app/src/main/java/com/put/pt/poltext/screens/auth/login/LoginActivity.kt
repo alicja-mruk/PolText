@@ -7,10 +7,13 @@ import com.put.pt.poltext.databinding.ActivityLoginBinding
 import com.put.pt.poltext.screens.BaseActivity
 import com.put.pt.poltext.screens.auth.register.RegisterActivity
 import com.put.pt.poltext.screens.home.HomeActivity
+import com.put.pt.poltext.utils.hideProgressBar
+import com.put.pt.poltext.utils.showProgressBar
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEvent.setEventListener
 import net.yslibrary.android.keyboardvisibilityevent.KeyboardVisibilityEventListener
 
-
+@ExperimentalCoroutinesApi
 class LoginActivity : BaseActivity(), KeyboardVisibilityEventListener {
 
     private var _binding: ActivityLoginBinding? = null
@@ -18,31 +21,41 @@ class LoginActivity : BaseActivity(), KeyboardVisibilityEventListener {
 
     private lateinit var loginViewModel: LoginViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
         supportActionBar?.hide()
 
-        //TODO: bind inputs with button so when inputs are empty disbale button
-
         loginViewModel = initViewModel()
 
+        registerObserveListeners();
+
+        setEventListener(this, this)
+        registerOnClickListeners()
+    }
+
+    private fun registerObserveListeners(){
         loginViewModel.goToHomeScreen.observe(this, {
-            val intent = Intent(this, HomeActivity::class.java)
+            hideProgressBar(binding.progressBar, binding.loginButton)
+            val intent = Intent(applicationContext, HomeActivity::class.java)
             startActivity(intent)
             finish()
         })
 
         loginViewModel.goToRegisterScreen.observe(this, {
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(applicationContext, RegisterActivity::class.java)
             startActivity(intent)
             finish()
         })
 
-        setEventListener(this, this)
-        registerOnClickListeners()
+        loginViewModel.showProgressBar.observe(this,{
+            showProgressBar(binding.progressBar, binding.loginButton)
+        })
+
+        loginViewModel.hideProgressBar.observe(this, {
+            hideProgressBar(binding.progressBar, binding.loginButton)
+        })
     }
 
     override fun onVisibilityChanged(isOpen: Boolean) {
@@ -58,8 +71,8 @@ class LoginActivity : BaseActivity(), KeyboardVisibilityEventListener {
     private fun registerOnClickListeners() {
         binding.loginButton.setOnClickListener {
             loginViewModel.onLoginClick(
-                email = binding.emailEditText.toString(),
-                password = binding.passwordEditText.toString()
+                email = binding.emailEditText.text.toString(),
+                password = binding.passwordEditText.text.toString()
             )
         }
 

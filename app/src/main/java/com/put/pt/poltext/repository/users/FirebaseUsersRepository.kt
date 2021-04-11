@@ -1,19 +1,18 @@
 package com.put.pt.poltext.repository.users
 
 import android.net.Uri
-import androidx.lifecycle.LiveData
 import com.google.android.gms.tasks.Task
-import com.put.pt.poltext.data.firebase.common.database
-import com.put.pt.poltext.data.firebase.common.liveData
+import com.google.firebase.firestore.CollectionReference
+import com.google.firebase.firestore.DocumentReference
 import com.put.pt.poltext.model.User
 
 interface FirebaseUsersRepository {
-    suspend fun setUserImage(uid: String, downloadUri: Uri): Task<Unit>
-    suspend fun uploadUserPhoto (uid: String, photoUrl: Uri) : Task<Uri>
-    suspend fun getImages(uid: String): LiveData<List<String>>
-    suspend fun createUser(user: User, password: String) : Task<Unit>
-    suspend fun getUser(): LiveData<User>
-    suspend fun getUser(uid: String): LiveData<User>
-    suspend fun getUsers(): LiveData<List<User>>
+    fun setUserImage(uid: String, downloadUri: Uri): Task<Unit>
+    fun uploadUserPhoto(localImage: Uri): Task<Uri>
+    fun updateUserPhoto(downloadUrl: Uri?): Task<Unit>
+    fun createUser(user: User, password: String) : Task<Unit>
+    fun getUser(uid: String): DocumentReference
+    fun getUsers():  CollectionReference
     fun currentUid(): String
+    fun isUserExistsForEmail(email: String): Task<Boolean>
 }

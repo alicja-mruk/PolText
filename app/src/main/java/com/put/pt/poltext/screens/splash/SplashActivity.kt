@@ -8,7 +8,9 @@ import com.google.firebase.auth.FirebaseUser
 import com.put.pt.poltext.R
 import com.put.pt.poltext.screens.auth.login.LoginActivity
 import com.put.pt.poltext.screens.home.HomeActivity
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
+@ExperimentalCoroutinesApi
 class SplashActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -20,12 +22,14 @@ class SplashActivity : AppCompatActivity() {
         finish()
     }
 
+
     private fun routeToAppropriatePage(user: FirebaseUser?) {
         when (user) {
-            null -> startActivity(Intent(this, LoginActivity::class.java))
-            else -> {
-                startActivity(Intent(this, HomeActivity::class.java))
+            null -> {
+                startActivity(Intent(this, LoginActivity::class.java))
             }
+            else ->  startActivity(Intent(this, HomeActivity::class.java))
+
         }
     }
 }

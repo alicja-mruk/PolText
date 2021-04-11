@@ -1,6 +1,5 @@
 package com.put.pt.poltext.screens
 
-
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
@@ -14,7 +13,6 @@ abstract class BaseActivity : AppCompatActivity() {
 
     lateinit var commonViewModel: CommonViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         commonViewModel = ViewModelProvider(this).get(CommonViewModel::class.java)
@@ -26,7 +24,10 @@ abstract class BaseActivity : AppCompatActivity() {
     }
 
     inline fun <reified T : BaseViewModel> initViewModel(): T =
-        ViewModelProvider(this, ViewModelFactory(application as App, commonViewModel, commonViewModel))
+        ViewModelProvider(
+            this,
+            ViewModelFactory(application as App, commonViewModel, commonViewModel)
+        )
             .get(T::class.java)
 
     companion object {
