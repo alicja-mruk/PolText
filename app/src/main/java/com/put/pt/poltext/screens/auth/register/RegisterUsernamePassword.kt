@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.put.pt.poltext.databinding.FragmentRegisterUsernamePasswordBinding
+import com.put.pt.poltext.extensions.setOnSingleClickListener
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi
@@ -30,7 +31,7 @@ class RegisterUsernamePassword : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.registerButton.setOnClickListener {
+        binding.registerButton.setOnSingleClickListener {
             val fullName = binding.nameEditText.text.toString()
             val password = binding.passwordEditText.text.toString()
             mListener.onRegister(fullName, password)

@@ -33,13 +33,15 @@ class RegisterActivity : BaseActivity(),
 
         registerViewModel = initViewModel()
 
-        registerObserveListeners();
+        registerObserveListeners()
     }
 
-    private fun registerObserveListeners(){
+    private fun registerObserveListeners() {
         registerViewModel.goToUsernamePasswordScreen.observe(this, {
             it?.let {
-                navHostFragment.navController.navigate(R.id.action_registerEmailPhoto_to_registerUsernamePassword)
+                if (navHostFragment.childFragmentManager.fragments[0] is RegisterEmailPhoto) {
+                    navHostFragment.navController.navigate(R.id.action_registerEmailPhoto_to_registerUsernamePassword)
+                }
             }
         })
 
@@ -50,7 +52,7 @@ class RegisterActivity : BaseActivity(),
         })
 
         registerViewModel.registerState.observe(this, {
-            when(it){
+            when (it) {
                 State.SUCCESS -> {
                     hideProgressBar()
                     startHomeActivity()
@@ -58,7 +60,7 @@ class RegisterActivity : BaseActivity(),
 
                 State.LOADING -> showProgressBar()
 
-                State.ERROR ->  hideProgressBar()
+                State.ERROR -> hideProgressBar()
 
                 else -> Unit
             }
@@ -84,6 +86,7 @@ class RegisterActivity : BaseActivity(),
             fragment.showProgressBar()
         }
     }
+
     private fun hideProgressBar() {
         val fragment = navHostFragment.childFragmentManager.fragments[0]
         if (fragment is RegisterUsernamePassword) {

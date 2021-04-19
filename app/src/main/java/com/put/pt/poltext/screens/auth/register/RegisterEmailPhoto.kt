@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.put.pt.poltext.R
 import com.put.pt.poltext.databinding.FragmentRegisterEmailPhotoBinding
 import com.put.pt.poltext.databinding.FragmentRegisterUsernamePasswordBinding
+import com.put.pt.poltext.extensions.setOnSingleClickListener
 import com.put.pt.poltext.helper.ImagePicker
 import com.put.pt.poltext.utils.activity
 
@@ -47,7 +48,7 @@ class RegisterEmailPhoto : Fragment() {
             imagePicker.show()
         }
 
-        binding.nextButton.setOnClickListener {
+        binding.nextButton.setOnSingleClickListener {
             val email = binding.emailEditText.text.toString()
             if (binding.profileIv.tag != null) {
                 mListener.onNext(email, binding.profileIv.tag.toString())

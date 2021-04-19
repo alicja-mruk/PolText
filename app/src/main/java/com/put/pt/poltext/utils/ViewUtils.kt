@@ -7,6 +7,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.google.android.material.button.MaterialButton
 
 
 fun Context.showToast(text: String?, duration: Int = Toast.LENGTH_SHORT) {
@@ -23,7 +24,7 @@ fun showProgressBar(progressBar: ProgressBar, button: Button) {
     button.visibility = View.INVISIBLE
 }
 
-fun hideProgressBar(progressBar: ProgressBar, button: Button) {
+fun hideProgressBar(progressBar: ProgressBar, button: MaterialButton) {
     progressBar.visibility = View.GONE
     button.visibility = View.VISIBLE
 }

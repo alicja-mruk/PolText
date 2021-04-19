@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.put.pt.poltext.databinding.ActivityLoginBinding
+import com.put.pt.poltext.extensions.setOnSingleClickListener
 import com.put.pt.poltext.screens.BaseActivity
 import com.put.pt.poltext.screens.auth.register.RegisterActivity
 import com.put.pt.poltext.screens.home.HomeActivity
@@ -29,7 +30,7 @@ class LoginActivity : BaseActivity(), KeyboardVisibilityEventListener {
 
         loginViewModel = initViewModel()
 
-        registerObserveListeners();
+        registerObserveListeners()
 
         setEventListener(this, this)
         registerOnClickListeners()
@@ -69,14 +70,14 @@ class LoginActivity : BaseActivity(), KeyboardVisibilityEventListener {
     }
 
     private fun registerOnClickListeners() {
-        binding.loginButton.setOnClickListener {
+        binding.loginButton.setOnSingleClickListener {
             loginViewModel.onLoginClick(
                 email = binding.emailEditText.text.toString(),
                 password = binding.passwordEditText.text.toString()
             )
         }
 
-        binding.moveToRegisterScreenBtn.setOnClickListener {
+        binding.moveToRegisterScreenBtn.setOnSingleClickListener {
             loginViewModel.onRegisterClick()
         }
     }
