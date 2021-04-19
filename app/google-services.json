@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "665306060715",
+    "project_id": "poltext-36184",
+    "storage_bucket": "poltext-36184.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:665306060715:android:ae4e9658b2ae7b0cbaa4ee",
+        "android_client_info": {
+          "package_name": "com.put.pt.poltext"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "665306060715-tbsj4f3jcv4fkr4fj7qqmr6im9k2uqsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBR7fPueLBzzvQmy9q1_DN3K2ueoLQ5KL0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "665306060715-tbsj4f3jcv4fkr4fj7qqmr6im9k2uqsf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,3 +1,25 @@
 <resources>
     <string name="app_name">PolText</string>
+    <string name="input_email_hint">Email</string>
+    <string name="input_password_hint">Password</string>
+    <string name="log_in">Log in</string>
+    <string name="register">Register</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="create_account">No account? Create it here!</string>
+    <string name="name">Name</string>
+    <string name="enter_name_and_password">Please enter username and password</string>
+    <string name="fullfill_all_fields">Please fullfill all  fields</string>
+    <string name="image_picker">Pick an image</string>
+    <string name="select_image">Select image from gallery</string>
+    <string name="take_picture">Take a picture</string>
+    <string name="permissions_not_granted">Camera permissions are not granted</string>
+    <string name="enter_email">Enter email</string>
+    <string name="email_exists">Email already exists</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="next">Next</string>
+    <string name="error_while_creating_user">Error while creating user has occured</string>
+    <string name="create_user_failure">Registration has failed</string>
+    <string name="fetch_users_failure">Failure to fetch users list</string>
+    <string name="upload_photo_failure">Upload photo failure</string>
 </resources>

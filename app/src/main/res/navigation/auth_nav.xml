@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/auth_nav"
+    app:startDestination="@id/registerEmailPhoto">
+    <fragment
+        android:id="@+id/registerEmailPhoto"
+        android:name="com.put.pt.poltext.screens.auth.register.RegisterEmailPhoto"
+        android:label="RegisterEmailPhoto" >
+        <action
+            android:id="@+id/action_registerEmailPhoto_to_registerUsernamePassword"
+            app:destination="@id/registerUsernamePassword" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerUsernamePassword"
+        android:name="com.put.pt.poltext.screens.auth.register.RegisterUsernamePassword"
+        android:label="RegisterUsernamePassword">
+        <action
+            android:id="@+id/action_registerUsernamePassword_to_registerEmailPhoto"
+            app:destination="@id/registerEmailPhoto" />
+    </fragment>
+</navigation>
