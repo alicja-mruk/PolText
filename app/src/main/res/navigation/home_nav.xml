@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/home_nav"
+    app:startDestination="@id/chatPrivateFragment">
+
+    <fragment
+        android:id="@+id/chatPrivateFragment"
+        android:name="com.put.pt.poltext.screens.home.private_chat.ChatPrivateFragment"
+        android:label="fragment_chat_private"
+        tools:layout="@layout/fragment_chat_private" >
+        <action
+            android:id="@+id/action_chatPrivateFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.put.pt.poltext.screens.home.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
+</navigation>
