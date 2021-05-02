@@ -15,4 +15,6 @@ interface FirebaseUsersRepository {
     fun getUsers():  CollectionReference
     fun currentUid(): String
     fun isUserExistsForEmail(email: String): Task<Boolean>
+    fun sendMessageToPublicChannel(message: String, user: User, timestamp: String): Task<Unit>
+    fun getPublicChannelMessages(): CollectionReference
 }

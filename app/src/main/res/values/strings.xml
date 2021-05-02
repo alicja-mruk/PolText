@@ -25,4 +25,5 @@
     <string name="profile">Profile</string>
     <string name="public_chat">Public Chat</string>
     <string name="private_chat">Private Chat</string>
+    <string name="send_message_error">Send message error!</string>
 </resources>
