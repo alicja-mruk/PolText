@@ -58,4 +58,15 @@ class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
             val signInMethods = it?.signInMethods ?: emptyList<String>()
             Tasks.forResult(signInMethods.isNotEmpty())
         }
+
+    override fun sendMessageToPublicChannel(message: String, user: User, timestamp: String): Task<Unit>  {
+        val _message = hashMapOf(
+            DatabaseConstants.UID to user,
+            DatabaseConstants.MESSAGE to message,
+            DatabaseConstants.TIMESTAMP to timestamp
+        )
+        return database.collection(DatabaseConstants.PUBLIC_MESSAGES).document(timestamp).set(_message).toUnit()
+    }
+
+    override fun getPublicChannelMessages(): CollectionReference  = database.collection(DatabaseConstants.PUBLIC_MESSAGES)
 }
