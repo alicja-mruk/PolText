@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/home_nav"
+    android:id="@+id/bottom_nav"
     app:startDestination="@id/chatPrivateFragment">
 
     <fragment
@@ -10,10 +10,17 @@
         android:name="com.put.pt.poltext.screens.home.private_chat.ChatPrivateFragment"
         android:label="fragment_chat_private"
         tools:layout="@layout/fragment_chat_private" >
-        <action
-            android:id="@+id/action_chatPrivateFragment_to_settingsFragment"
-            app:destination="@id/settingsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/chatPublicFragment"
+        android:name="com.put.pt.poltext.screens.home.public_chat.ChatPublicFragment"
+        android:label="fragment_chat_public"
+        tools:layout="@layout/fragment_chat_public" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.put.pt.poltext.screens.home.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.put.pt.poltext.screens.home.settings.SettingsFragment"
