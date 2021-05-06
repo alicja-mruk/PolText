@@ -19,12 +19,6 @@ class ChatPublicFragment : Fragment() {
     private val viewModel by sharedViewModel<ChatViewModel>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var adapter: ChatPublicAdapter? = null
-    private lateinit var mListener: Listener
-
-
-    interface Listener {
-        fun onSendMessage(message: String)
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         binding.recyclerView.addItemDecoration(
@@ -63,13 +57,8 @@ class ChatPublicFragment : Fragment() {
     private fun bindOnClickListeners(){
         binding.sendBtn.setOnClickListener{
             val text = binding.message.text.toString()
-            mListener.onSendMessage(text)
+           // TODO: send message
         }
-    }
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        mListener = context as Listener
     }
 
     override fun onCreateView(
