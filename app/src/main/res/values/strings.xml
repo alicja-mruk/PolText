@@ -27,4 +27,6 @@
     <string name="private_chat">Private Chat</string>
     <string name="send_message_error">Send message error!</string>
     <string name="fetch_error">Fetch Data Error</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 </resources>

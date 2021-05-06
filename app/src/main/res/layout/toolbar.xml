@@ -14,17 +14,16 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-<!--        TODO: don't know yet if hamburger will be needed-->
-<!--        <ImageView-->
-<!--            android:id="@+id/hamburger_btn"-->
-<!--            android:layout_width="wrap_content"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:src="@drawable/ic_hamburger"-->
-<!--            app:layout_constraintBottom_toBottomOf="parent"-->
-<!--            app:layout_constraintStart_toStartOf="parent"-->
-<!--            app:layout_constraintTop_toTopOf="parent"-->
-<!--            tools:ignore="ContentDescription" />-->
-<!--        -->
+        <ImageView
+            android:id="@+id/hamburger_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_hamburger"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:ignore="ContentDescription" />
+
         <ImageView
             android:id="@+id/settings_btn"
             android:layout_width="wrap_content"

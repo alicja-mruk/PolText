@@ -1,25 +1,39 @@
 package com.put.pt.poltext.screens.home
 
 
+import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.view.View
+import android.view.inputmethod.InputMethodManager
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.put.pt.poltext.R
 import com.put.pt.poltext.databinding.ActivityHomeBinding
+import com.put.pt.poltext.navigator.ClickListener
+import com.put.pt.poltext.navigator.NavigationItems
+import com.put.pt.poltext.navigator.NavigationRVAdapter
+import com.put.pt.poltext.navigator.RecyclerTouchListener
 import com.put.pt.poltext.screens.BaseActivity
 import com.put.pt.poltext.screens.home.public_chat.ChatPublicFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class HomeActivity : BaseActivity(), ChatPublicFragment.Listener {
+class HomeActivity : BaseActivity() {
 
     private var _binding: ActivityHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var navController: NavController
-    private lateinit var navHostFragment: NavHostFragment
+    lateinit var drawerLayout: DrawerLayout
+    private lateinit var adapter: NavigationRVAdapter
+
     private val chatViewModel by viewModel<ChatViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,26 +41,73 @@ class HomeActivity : BaseActivity(), ChatPublicFragment.Listener {
         _binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_home) as NavHostFragment
+        drawerLayout = binding.drawerLayout
         navController = findNavController(R.id.nav_host_fragment_home)
-        NavigationUI.setupWithNavController( binding.bottomNavView, navController)
 
+        binding.navigationRv.layoutManager = LinearLayoutManager(this)
+        binding.navigationRv.setHasFixedSize(true)
+        updateAdapter(0)
+        addOnTouchListener()
         bindOnClickListeners()
+    }
+
+    private fun addOnTouchListener(){
+        binding.navigationRv.addOnItemTouchListener(RecyclerTouchListener(this, object :
+            ClickListener {
+            override fun onClick(view: View, position: Int) {
+                when (position) {
+                    0 -> {
+                        navController.navigate(R.id.chatPrivateFragment)
+                    }
+                    1 -> {
+                        navController.navigate(R.id.chatPublicFragment)
+                    }
+                    2 -> {
+                        navController.navigate(R.id.profileFragment)
+                    }
+                }
+                updateAdapter(position)
+
+                Handler().postDelayed({
+                    drawerLayout.closeDrawer(GravityCompat.START)
+                }, 200)
+            }
+        }))
+    }
+
+    private fun updateAdapter(highlightItemPos: Int) {
+        adapter = NavigationRVAdapter(NavigationItems.data, highlightItemPos)
+        binding.navigationRv.adapter = adapter
+        adapter.notifyDataSetChanged()
     }
 
     private fun bindOnClickListeners () {
         binding.toolbar.settingsBtn.setOnClickListener {
-            navController.navigateUp();
+            navController.navigateUp()
             navController.navigate(R.id.settingsFragment)
         }
+        binding.toolbar.hamburgerBtn.setOnClickListener {
+            if(binding.drawerLayout.isOpen){
+                binding.drawerLayout.closeDrawers()
+            }else{
+                binding.drawerLayout.open()
+            }
+        }
     }
-
-    override fun onSendMessage(message: String) {
-        chatViewModel.onSendMessage(message)
-    }
-
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            if (!navController.popBackStack()) {
+                finish()
+                return
+            }
+            navController.popBackStack()
+        }
     }
 }
