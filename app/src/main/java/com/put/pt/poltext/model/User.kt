@@ -6,5 +6,5 @@ data class User(
     val username: String="",
     val email:String="",
     val photoUrl: String? = "",
-    @get:Exclude val uid: String = ""
+    val uid: String = ""
 )

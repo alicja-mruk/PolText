@@ -1,26 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/chat_public_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/roman_silver"
     android:padding="@dimen/_8sdp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/image"
+        android:id="@+id/image_public_row"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/name"
+        android:id="@+id/name_public_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:textColor="@color/black"
-        app:layout_constraintStart_toEndOf="@+id/image"
+        app:layout_constraintStart_toEndOf="@+id/image_public_row"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Testowy nick" />
 
@@ -31,23 +33,22 @@
         android:layout_marginStart="@dimen/_8sdp"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-
         app:layout_constraintTop_toTopOf="parent"
         tools:text="12:00 24/01" />
 
     <TextView
-        android:breakStrategy="simple"
-        android:id="@+id/message"
+        android:id="@+id/message_row"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_8sdp"
+        android:breakStrategy="simple"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/image"
-        app:layout_constraintTop_toBottomOf="@+id/name"
+        app:layout_constraintStart_toEndOf="@+id/image_public_row"
+        app:layout_constraintTop_toBottomOf="@+id/name_public_row"
         tools:text="co druga wiadomość w liście musi być “przyciemniona”/innego koloru aby łatwo było rozróżnić, zdjęcie i nazwa użytkownika. W prawym górnym rogu czas wysłania wiadomości [wysyłamy w formacie ISO 8601, wyświetlamy sformatowane]
 W widoku czatu : pole dla wiadomości, button do wysyłania wiadomości
-"/>
+" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

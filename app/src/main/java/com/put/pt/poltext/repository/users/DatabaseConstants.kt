@@ -9,6 +9,7 @@ object DatabaseConstants {
     const val UID = "uid"
     const val EMAIL = "email"
     const val USERNAME = "username"
+    const val USER = "user"
 
 
     const val USERS = "users"
