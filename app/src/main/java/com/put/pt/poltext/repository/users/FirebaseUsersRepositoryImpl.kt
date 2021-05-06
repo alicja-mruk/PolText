@@ -61,7 +61,7 @@ class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
 
     override fun sendMessageToPublicChannel(message: String, user: User, timestamp: String): Task<Unit>  {
         val _message = hashMapOf(
-            DatabaseConstants.UID to user,
+            DatabaseConstants.USER to user,
             DatabaseConstants.MESSAGE to message,
             DatabaseConstants.TIMESTAMP to timestamp
         )
