@@ -6,44 +6,53 @@
     android:id="@+id/chat_public_row"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/roman_silver"
+    android:background="@color/smoky_black"
     android:padding="@dimen/_8sdp">
 
     <de.hdodenhof.circleimageview.CircleImageView
+        android:src="@drawable/person_placeholder"
         android:id="@+id/image_public_row"
         android:layout_width="@dimen/_24sdp"
         android:layout_height="@dimen/_24sdp"
+        app:civ_border_color="@color/mandarin"
+        app:civ_border_width="1dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/name_public_row"
+        style="@style/TextViewStyle"
+        android:textSize="@dimen/_12sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
-        android:textColor="@color/black"
+        android:textColor="@color/ghost_white"
         app:layout_constraintStart_toEndOf="@+id/image_public_row"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Testowy nick" />
 
     <TextView
         android:id="@+id/timestamp"
+        style="@style/TextViewStyle"
+        android:textSize="@dimen/_8sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
-        android:textColor="@color/black"
+        android:textColor="@color/roman_silver"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:text="12:00 24/01" />
 
     <TextView
         android:id="@+id/message_row"
+        style="@style/TextViewStyle"
         android:layout_width="0dp"
+        android:textSize="@dimen/_11sdp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_8sdp"
         android:layout_marginTop="@dimen/_8sdp"
         android:breakStrategy="simple"
-        android:textColor="@color/black"
+        android:textColor="@color/ghost_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/image_public_row"
         app:layout_constraintTop_toBottomOf="@+id/name_public_row"

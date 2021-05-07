@@ -11,6 +11,7 @@ import com.put.pt.poltext.common.toUnit
 import com.put.pt.poltext.data.firebase.common.auth
 import com.put.pt.poltext.data.firebase.common.storage
 import com.put.pt.poltext.model.User
+import java.util.*
 
 
 class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
@@ -65,7 +66,7 @@ class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
             DatabaseConstants.MESSAGE to message,
             DatabaseConstants.TIMESTAMP to timestamp
         )
-        return database.collection(DatabaseConstants.PUBLIC_MESSAGES).document(timestamp).set(_message).toUnit()
+        return database.collection(DatabaseConstants.PUBLIC_MESSAGES).document(message.hashCode().toString()).set(_message).toUnit()
     }
 
     override fun getPublicChannelMessages(): CollectionReference  = database.collection(DatabaseConstants.PUBLIC_MESSAGES)
