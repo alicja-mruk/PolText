@@ -11,16 +11,16 @@ import com.put.pt.poltext.R
 import com.put.pt.poltext.model.PublicChatMessage
 import com.put.pt.poltext.screens.home.ChatViewModel
 
-
 class ChatPublicAdapter(viewModel: ChatViewModel, fragment: ChatPublicFragment) :
     RecyclerView.Adapter<ChatPublicAdapter.ViewHolder>() {
     var messages: ArrayList<PublicChatMessage> = ArrayList()
 
     init {
-        viewModel.messages.observe(fragment.viewLifecycleOwner) {
+        viewModel.messages.observe(fragment.viewLifecycleOwner,  {
+            messages.clear()
             messages.addAll(it)
             notifyDataSetChanged()
-        }
+        })
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
