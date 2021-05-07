@@ -60,6 +60,7 @@ class ChatPublicFragment : Fragment() {
             })
             notifyDataSetChanged.observe(viewLifecycleOwner, {
                 adapter?.notifyDataSetChanged()
+                binding.recyclerView.scrollToPosition(binding.recyclerView.adapter!!.itemCount - 1)
             })
             state.observe(viewLifecycleOwner, { state ->
                 when (state) {

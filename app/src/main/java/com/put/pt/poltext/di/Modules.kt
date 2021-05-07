@@ -1,10 +1,8 @@
 package com.put.pt.poltext.di
 
-
-
-import com.put.pt.poltext.repository.users.FirebaseUsersRepository
 import com.put.pt.poltext.repository.users.FirebaseUsersRepositoryImpl
 import com.put.pt.poltext.screens.home.ChatViewModel
+import com.put.pt.poltext.screens.home.settings.SettingsViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 
 
@@ -17,5 +15,11 @@ val chatViewModelModule = module {
     }
 }
 
+val settingsViewModelModule = module {
+    viewModel {
+        SettingsViewModel()
+    }
+}
 
-val viewModelModules = listOf(chatViewModelModule)
+
+val viewModelModules = listOf(chatViewModelModule, settingsViewModelModule)
