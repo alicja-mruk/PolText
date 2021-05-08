@@ -1,5 +1,6 @@
 package com.put.pt.poltext.screens.home.public_chat
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,13 +11,14 @@ import com.bumptech.glide.Glide
 import com.put.pt.poltext.R
 import com.put.pt.poltext.model.PublicChatMessage
 import com.put.pt.poltext.screens.home.ChatViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class ChatPublicAdapter(viewModel: ChatViewModel, fragment: ChatPublicFragment) :
+class ChatPublicAdapter @ExperimentalCoroutinesApi constructor(viewModel: ChatViewModel, fragment: ChatPublicFragment) :
     RecyclerView.Adapter<ChatPublicAdapter.ViewHolder>() {
     var messages: ArrayList<PublicChatMessage> = ArrayList()
 
     init {
-        viewModel.messages.observe(fragment.viewLifecycleOwner,  {
+        viewModel.messages.observe(fragment.viewLifecycleOwner, {
             messages.clear()
             messages.addAll(it)
             notifyDataSetChanged()
@@ -25,7 +27,7 @@ class ChatPublicAdapter(viewModel: ChatViewModel, fragment: ChatPublicFragment) 
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = messages[position]
-        holder.bind(item)
+        holder.bind(item, position)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -41,12 +43,18 @@ class ChatPublicAdapter(viewModel: ChatViewModel, fragment: ChatPublicFragment) 
         val name = view.findViewById(R.id.name_public_row) as TextView
         val image = view.findViewById(R.id.image_public_row) as ImageView
 
-        fun bind(item: PublicChatMessage) {
+        fun bind(item: PublicChatMessage, position: Int) {
             message.text = item.message
             timestamp.text = item.timestamp
             name.text = item.user.username
             item.user.photoUrl?.let {
                 Glide.with(itemView).load(it).into(image)
+            }
+
+            if (position % 2 == 0) {
+                itemView.setBackgroundColor(Color.parseColor("#1d1a1b"))
+            } else {
+                itemView.setBackgroundColor(Color.parseColor("#4d4244"))
             }
         }
     }
