@@ -41,7 +41,7 @@ class SettingsFragment : Fragment() {
             })
         }
     }
-    
+
     private fun goToLoginScreen(){
         val intent = Intent(activity, LoginActivity::class.java)
         startActivity(intent)
