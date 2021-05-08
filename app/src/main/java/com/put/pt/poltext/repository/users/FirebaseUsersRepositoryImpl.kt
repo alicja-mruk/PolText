@@ -66,7 +66,7 @@ class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
             DatabaseConstants.MESSAGE to message,
             DatabaseConstants.TIMESTAMP to timestamp
         )
-        return database.collection(DatabaseConstants.PUBLIC_MESSAGES).document(message.hashCode().toString()).set(_message).toUnit()
+        return database.collection(DatabaseConstants.PUBLIC_MESSAGES).document(UUID.randomUUID().toString()).set(_message).toUnit()
     }
 
     override fun getPublicChannelMessages(): CollectionReference  = database.collection(DatabaseConstants.PUBLIC_MESSAGES)

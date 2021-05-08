@@ -52,8 +52,10 @@ class RegisterEmailPhoto : Fragment() {
             val email = binding.emailEditText.text.toString()
             if (binding.profileIv.tag != null) {
                 mListener.onNext(email, binding.profileIv.tag.toString())
+            } else {
+                mListener.onNext(email, "")
             }
-            mListener.onNext(email, "")
+
         }
     }
 

@@ -86,13 +86,22 @@ class ChatPublicFragment : Fragment() {
         if (isShown) {
             binding.progressBar.visibility = View.VISIBLE
             binding.recyclerView.visibility = View.INVISIBLE
+            binding.noMessagesLayout.visibility = View.GONE
         } else {
+            if (viewModel.messages.value?.size == 0) {
+                binding.recyclerView.visibility = View.INVISIBLE
+                binding.noMessagesLayout.visibility = View.VISIBLE
+            } else {
+                binding.recyclerView.visibility = View.VISIBLE
+                binding.noMessagesLayout.visibility = View.GONE
+            }
             binding.progressBar.visibility = View.GONE
-            binding.recyclerView.visibility = View.VISIBLE
         }
+
+
     }
 
-    private fun startLoginActivity(){
+    private fun startLoginActivity() {
         val intent = Intent(activity, LoginActivity::class.java)
         startActivity(intent)
     }
