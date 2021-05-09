@@ -13,7 +13,10 @@ import com.put.pt.poltext.model.PublicChatMessage
 import com.put.pt.poltext.screens.home.ChatViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
-class ChatPublicAdapter @ExperimentalCoroutinesApi constructor(viewModel: ChatViewModel, fragment: ChatPublicFragment) :
+class ChatPublicAdapter @ExperimentalCoroutinesApi constructor(
+    viewModel: ChatViewModel,
+    fragment: ChatPublicFragment
+) :
     RecyclerView.Adapter<ChatPublicAdapter.ViewHolder>() {
     var messages: ArrayList<PublicChatMessage> = ArrayList()
 

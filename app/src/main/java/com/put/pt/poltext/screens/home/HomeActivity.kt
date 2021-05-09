@@ -1,19 +1,12 @@
 package com.put.pt.poltext.screens.home
 
-
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
-import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
-
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.put.pt.poltext.R
 import com.put.pt.poltext.databinding.ActivityHomeBinding
@@ -22,11 +15,11 @@ import com.put.pt.poltext.navigator.NavigationItems
 import com.put.pt.poltext.navigator.NavigationRVAdapter
 import com.put.pt.poltext.navigator.RecyclerTouchListener
 import com.put.pt.poltext.screens.BaseActivity
-import com.put.pt.poltext.screens.home.public_chat.ChatPublicFragment
+import com.put.pt.poltext.screens.home.profile.ProfileFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class HomeActivity : BaseActivity() {
+class HomeActivity : BaseActivity(), ProfileFragment.Listener, EditProfileFragment.Listener {
 
     private var _binding: ActivityHomeBinding? = null
     private val binding get() = _binding!!
@@ -34,7 +27,7 @@ class HomeActivity : BaseActivity() {
     lateinit var drawerLayout: DrawerLayout
     private lateinit var adapter: NavigationRVAdapter
 
-    private val chatViewModel by viewModel<ChatViewModel>()
+    private val viewModel by viewModel<ChatViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,7 +44,7 @@ class HomeActivity : BaseActivity() {
         bindOnClickListeners()
     }
 
-    private fun addOnTouchListener(){
+    private fun addOnTouchListener() {
         binding.navigationRv.addOnItemTouchListener(RecyclerTouchListener(this, object :
             ClickListener {
             override fun onClick(view: View, position: Int) {
@@ -81,19 +74,21 @@ class HomeActivity : BaseActivity() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun bindOnClickListeners () {
+
+    private fun bindOnClickListeners() {
         binding.toolbar.settingsBtn.setOnClickListener {
             navController.navigateUp()
             navController.navigate(R.id.settingsFragment)
         }
         binding.toolbar.hamburgerBtn.setOnClickListener {
-            if(binding.drawerLayout.isOpen){
+            if (binding.drawerLayout.isOpen) {
                 binding.drawerLayout.closeDrawers()
-            }else{
+            } else {
                 binding.drawerLayout.open()
             }
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
@@ -109,5 +104,13 @@ class HomeActivity : BaseActivity() {
             }
             navController.popBackStack()
         }
+    }
+
+    override fun onNavigateToEditProfileScreen() {
+        navController.navigate(R.id.editProfileFragment)
+    }
+
+    override fun onNavigateToProfileScreen() {
+        navController.navigate(R.id.profileFragment)
     }
 }

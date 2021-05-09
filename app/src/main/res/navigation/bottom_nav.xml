@@ -26,5 +26,10 @@
         android:name="com.put.pt.poltext.screens.home.settings.SettingsFragment"
         android:label="fragment_settings"
         tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.put.pt.poltext.screens.home.profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile" />
 
 </navigation>

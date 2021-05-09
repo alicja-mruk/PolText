@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".screens.home.profile.ProfileFragment">
+    tools:context=".screens.home.profile.EditProfileFragment">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_view"
@@ -25,15 +25,16 @@
         style="@style/TextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_40sdp"
         android:text="@string/name"
+        app:layout_constraintBottom_toBottomOf="@+id/name"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/image_view" />
+        app:layout_constraintTop_toTopOf="@+id/name" />
 
-    <TextView
+    <EditText
         android:id="@+id/name"
-        style="@style/Header.Small"
-        android:layout_width="wrap_content"
+        android:textAlignment="center"
+        style="@style/EditText.BoldFont"
+        android:layout_width="@dimen/_136sdp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_40sdp"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
@@ -48,19 +49,44 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_16sdp"
         android:text="@string/email"
+        app:layout_constraintBottom_toBottomOf="@+id/email"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/name" />
 
-    <TextView
-        android:id="@+id/email"
-        style="@style/Header.Small"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/edit_gmail_btn"
+        android:padding="@dimen/_10sdp"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="@+id/name"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintTop_toTopOf="@+id/name"
+        app:srcCompat="@drawable/edit_icon" />
+
+    <EditText
+        android:id="@+id/email"
+        style="@style/EditText.BoldFont"
+        android:textAlignment="center"
+        android:layout_width="@dimen/_136sdp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_16sdp"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/name"
         tools:text="janek@gmail.com" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/edit_email_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="@+id/email"
+        app:layout_constraintEnd_toStartOf="@+id/guideline1"
+        app:layout_constraintStart_toEndOf="@+id/name"
+        app:layout_constraintTop_toTopOf="@+id/email"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/edit_icon" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -77,12 +103,12 @@
         app:layout_constraintGuide_end="@dimen/_12sdp" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/navigate_to_edit_profile_screen_btn"
+        android:id="@+id/save_btn"
         android:layout_width="@dimen/_136sdp"
         android:layout_height="@dimen/_36sdp"
         android:layout_marginTop="@dimen/_56sdp"
         android:backgroundTint="@color/mandarin"
-        android:text="@string/edit_profile"
+        android:text="@string/save"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/guideline"
