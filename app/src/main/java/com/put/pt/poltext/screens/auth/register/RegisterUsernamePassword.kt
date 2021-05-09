@@ -2,10 +2,10 @@ package com.put.pt.poltext.screens.auth.register
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import com.put.pt.poltext.databinding.FragmentRegisterUsernamePasswordBinding
 import com.put.pt.poltext.extensions.setOnSingleClickListener
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -36,6 +36,7 @@ class RegisterUsernamePassword : Fragment() {
             val password = binding.passwordEditText.text.toString()
             mListener.onRegister(fullName, password)
         }
+
     }
 
     override fun onAttach(context: Context) {

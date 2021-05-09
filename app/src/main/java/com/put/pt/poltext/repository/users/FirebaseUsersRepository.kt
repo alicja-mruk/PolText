@@ -10,6 +10,8 @@ interface FirebaseUsersRepository {
     fun setUserImage(uid: String, downloadUri: Uri): Task<Unit>
     fun uploadUserPhoto(localImage: Uri): Task<Uri>
     fun updateUserPhoto(downloadUrl: Uri?): Task<Unit>
+    fun updateUsername(username: String): Task<Unit>
+    fun updateUserEmail(email: String): Task<Unit>
     fun createUser(user: User, password: String) : Task<Unit>
     fun getUser(uid: String): DocumentReference
     fun getUsers():  CollectionReference
