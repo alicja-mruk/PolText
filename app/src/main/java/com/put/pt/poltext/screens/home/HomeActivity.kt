@@ -15,6 +15,7 @@ import com.put.pt.poltext.navigator.NavigationItems
 import com.put.pt.poltext.navigator.NavigationRVAdapter
 import com.put.pt.poltext.navigator.RecyclerTouchListener
 import com.put.pt.poltext.screens.BaseActivity
+import com.put.pt.poltext.screens.home.profile.EditProfileFragment
 import com.put.pt.poltext.screens.home.profile.ProfileFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
