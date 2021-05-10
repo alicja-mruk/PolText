@@ -15,7 +15,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class ChatViewModel(private val userRepository: FirebaseUsersRepositoryImpl): ViewModel(){
-    lateinit var user: User
+    var user = MutableLiveData<User>()
     val messages = MutableLiveData<ArrayList<PublicChatMessage>>()
 
     private val _resetInput = SingleLiveEvent<Unit>()
@@ -33,7 +33,7 @@ class ChatViewModel(private val userRepository: FirebaseUsersRepositoryImpl): Vi
             _state.value = State.LOADING
             userRepository.getUser(auth.currentUser.uid).get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
-                    this.user = task.result?.toObject<User>()!!
+                    user.postValue(task.result?.toObject<User>())
                     setPublicMessagesListener()
                 }
             }
@@ -64,10 +64,12 @@ class ChatViewModel(private val userRepository: FirebaseUsersRepositoryImpl): Vi
     fun onSendMessage(message: String) {
         if (message.isNotEmpty()) {
             val timestamp: String = SimpleDateFormat( "dd/MM/yyyy hh:mm:ss a", Locale.getDefault()).format(Date())
-            userRepository.sendMessageToPublicChannel(message, user, timestamp)
-                .addOnSuccessListener {
-                    _resetInput.value = Unit
-                }
+            user.value?.let {
+                userRepository.sendMessageToPublicChannel(message, it, timestamp)
+                    .addOnSuccessListener {
+                        _resetInput.value = Unit
+                    }
+            }
         }
     }
 

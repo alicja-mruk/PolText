@@ -35,6 +35,13 @@ class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
         database.collection(DatabaseConstants.USERS).document(currentUid())
             .update(DatabaseConstants.PHOTO_URL, downloadUrl.toString()).toUnit()
 
+    override fun updateUsername(username: String): Task<Unit> =
+        database.collection(DatabaseConstants.USERS).document(currentUid())
+            .update(DatabaseConstants.USERNAME, username).toUnit()
+
+    override fun updateUserEmail(email: String): Task<Unit> =
+        database.collection(DatabaseConstants.USERS).document(currentUid())
+            .update(DatabaseConstants.EMAIL, email).toUnit()
 
     override fun createUser(user: User, password: String): Task<Unit> {
         val _user = hashMapOf(
@@ -50,7 +57,8 @@ class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
 
     override fun currentUid(): String = auth.currentUser!!.uid
 
-    override fun getUser(uid: String): DocumentReference = database.collection(DatabaseConstants.USERS).document(uid)
+    override fun getUser(uid: String): DocumentReference =
+        database.collection(DatabaseConstants.USERS).document(uid)
 
     override fun getUsers(): CollectionReference = database.collection(DatabaseConstants.USERS)
 
@@ -60,14 +68,20 @@ class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
             Tasks.forResult(signInMethods.isNotEmpty())
         }
 
-    override fun sendMessageToPublicChannel(message: String, user: User, timestamp: String): Task<Unit>  {
+    override fun sendMessageToPublicChannel(
+        message: String,
+        user: User,
+        timestamp: String
+    ): Task<Unit> {
         val _message = hashMapOf(
             DatabaseConstants.USER to user,
             DatabaseConstants.MESSAGE to message,
             DatabaseConstants.TIMESTAMP to timestamp
         )
-        return database.collection(DatabaseConstants.PUBLIC_MESSAGES).document(UUID.randomUUID().toString()).set(_message).toUnit()
+        return database.collection(DatabaseConstants.PUBLIC_MESSAGES)
+            .document(UUID.randomUUID().toString()).set(_message).toUnit()
     }
 
-    override fun getPublicChannelMessages(): CollectionReference  = database.collection(DatabaseConstants.PUBLIC_MESSAGES)
+    override fun getPublicChannelMessages(): CollectionReference =
+        database.collection(DatabaseConstants.PUBLIC_MESSAGES)
 }

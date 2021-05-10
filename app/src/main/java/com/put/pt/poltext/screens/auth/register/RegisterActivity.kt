@@ -3,11 +3,13 @@ package com.put.pt.poltext.screens.auth.register
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import com.put.pt.poltext.R
 import com.put.pt.poltext.databinding.ActivityRegisterBinding
 import com.put.pt.poltext.screens.BaseActivity
 import com.put.pt.poltext.screens.State
+import com.put.pt.poltext.screens.auth.login.LoginActivity
 import com.put.pt.poltext.screens.home.HomeActivity
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -36,6 +38,7 @@ class RegisterActivity : BaseActivity(),
         registerObserveListeners()
     }
 
+
     private fun registerObserveListeners() {
         registerViewModel.goToUsernamePasswordScreen.observe(this, {
             it?.let {
@@ -57,11 +60,8 @@ class RegisterActivity : BaseActivity(),
                     hideProgressBar()
                     startHomeActivity()
                 }
-
                 State.LOADING -> showProgressBar()
-
                 State.ERROR -> hideProgressBar()
-
                 else -> Unit
             }
         })
@@ -97,6 +97,20 @@ class RegisterActivity : BaseActivity(),
     private fun startHomeActivity() {
         startActivity(Intent(this, HomeActivity::class.java))
         finish()
+    }
+
+    override fun onBackPressed() {
+        val f = navHostFragment.childFragmentManager.fragments[0]
+        when (f) {
+            is RegisterEmailPhoto -> {
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+//          TODO: find the way to overcome 'LifecycleOwner is attempting to register while current state is RESUMED. LifecycleOwners must call register before they are STARTED.'
+//            is RegisterUsernamePassword -> {
+//               navHostFragment.navController.navigate(R.id.action_registerUsernamePassword_to_registerEmailPhoto)
+//            }
+        }
     }
 
 }
