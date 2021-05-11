@@ -16,7 +16,6 @@ class EditProfileFragment : Fragment() {
     private var _binding: FragmentEditProfileBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var imagePicker: ImagePicker
     private val viewModel by viewModel<ProfileViewModel>()
 
     private lateinit var mListener: Listener
@@ -28,28 +27,35 @@ class EditProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         registerOnClickListeners()
         observeLiveData()
-
-        imagePicker = ImagePicker(context?.activity() as AppCompatActivity) { uri ->
-            binding.imageView.setImageURI(uri)
-            binding.imageView.tag = uri.toString()
-        }
     }
 
     private fun registerOnClickListeners(){
-        binding.imageView.setOnSingleClickListener{
-            imagePicker.show()
-        }
-
         binding.saveBtn.setOnSingleClickListener {
             val username = binding.name.text.toString()
             val email = binding.email.text.toString()
-            val photoUrl = binding.imageView.tag.toString()
-            viewModel.updateUser(photoUrl, username, email)
+            viewModel.updateUser(username, email)
+        }
+
+        binding.editEmailBtn.setOnSingleClickListener{
+            binding.email.requestFocus()
+        }
+        binding.editNameBtn.setOnSingleClickListener{
+            binding.name.requestFocus()
+        }
+
+        binding.layout.setOnClickListener{
+            binding.email.clearFocus()
+            binding.name.clearFocus()
         }
     }
+
     private fun observeLiveData(){
         viewModel.moveToProfileScreen.observe(viewLifecycleOwner,{
             mListener.onNavigateToProfileScreen()
+        })
+        viewModel.user.observe(viewLifecycleOwner,{ user ->
+            binding.name.setText(user.username)
+            binding.email.setText(user.email)
         })
     }
 
