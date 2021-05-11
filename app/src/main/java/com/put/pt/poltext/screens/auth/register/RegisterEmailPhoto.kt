@@ -7,10 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import com.put.pt.poltext.R
 import com.put.pt.poltext.databinding.FragmentRegisterEmailPhotoBinding
-import com.put.pt.poltext.databinding.FragmentRegisterUsernamePasswordBinding
-import com.put.pt.poltext.extensions.setOnSingleClickListener
+import com.put.pt.poltext.utils.setOnSingleClickListener
 import com.put.pt.poltext.helper.ImagePicker
 import com.put.pt.poltext.utils.activity
 

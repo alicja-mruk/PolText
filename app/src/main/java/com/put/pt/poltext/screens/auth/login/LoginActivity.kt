@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import com.put.pt.poltext.databinding.ActivityLoginBinding
-import com.put.pt.poltext.extensions.setOnSingleClickListener
+import com.put.pt.poltext.utils.setOnSingleClickListener
 import com.put.pt.poltext.screens.BaseActivity
 import com.put.pt.poltext.screens.auth.register.RegisterActivity
 import com.put.pt.poltext.screens.home.HomeActivity

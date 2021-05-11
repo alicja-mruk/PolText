@@ -3,9 +3,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/layout"
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".screens.home.profile.EditProfileFragment">
@@ -37,17 +37,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="Janek" />
 
-    <TextView
-        android:id="@+id/email_label"
-        style="@style/TextViewStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_36sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:gravity="center"
-        android:text="@string/email"
-        app:layout_constraintBottom_toBottomOf="@+id/email"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/edit_name_btn"
@@ -58,33 +47,6 @@
         app:layout_constraintBottom_toBottomOf="@+id/name"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintTop_toTopOf="@+id/name"
-        app:srcCompat="@drawable/edit_icon" />
-
-    <EditText
-        android:id="@+id/email"
-        style="@style/EditText.BoldFont"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/_36sdp"
-        android:layout_marginHorizontal="@dimen/_8sdp"
-        android:layout_marginTop="@dimen/_16sdp"
-        android:focusable="true"
-        android:focusableInTouchMode="true"
-        android:paddingHorizontal="@dimen/_8sdp"
-        android:textAlignment="center"
-        app:layout_constraintEnd_toStartOf="@+id/edit_email_btn"
-        app:layout_constraintStart_toEndOf="@+id/email_label"
-        app:layout_constraintTop_toBottomOf="@+id/name"
-        tools:text="janek@gmail.com" />
-
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/edit_email_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_36sdp"
-        android:padding="@dimen/_10sdp"
-        app:layout_constraintBottom_toBottomOf="@+id/email"
-        app:layout_constraintEnd_toStartOf="@+id/guideline1"
-        app:layout_constraintTop_toTopOf="@+id/email"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/edit_icon" />
 
     <androidx.constraintlayout.widget.Guideline
@@ -103,13 +65,24 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save_btn"
+        android:layout_marginTop="@dimen/_40sdp"
         android:layout_width="@dimen/_136sdp"
-        android:layout_height="@dimen/_36sdp"
-        android:layout_marginTop="@dimen/_56sdp"
+        android:layout_height="@dimen/_40sdp"
         android:backgroundTint="@color/mandarin"
         android:text="@string/save"
         app:layout_constraintEnd_toStartOf="@+id/guideline1"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toBottomOf="@+id/name" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_40sdp"
+        android:translationZ="100dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/save_btn"
+        app:layout_constraintEnd_toEndOf="@+id/save_btn"
+        app:layout_constraintStart_toStartOf="@+id/save_btn"
+        app:layout_constraintTop_toTopOf="@+id/save_btn" />
 </androidx.constraintlayout.widget.ConstraintLayout>

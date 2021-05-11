@@ -7,7 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.put.pt.poltext.databinding.FragmentRegisterUsernamePasswordBinding
-import com.put.pt.poltext.extensions.setOnSingleClickListener
+import com.put.pt.poltext.utils.setOnSingleClickListener
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 @ExperimentalCoroutinesApi

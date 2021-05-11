@@ -24,8 +24,6 @@ class ProfileViewModel(private val userRepository: FirebaseUsersRepositoryImpl) 
     private val _updateUserState = MutableLiveData<UIState>()
     val updateUserState = _updateUserState
 
-    private var updateUserCondition = MutableList<Boolean>(2) {true}
-
     init {
         getUser()
     }
@@ -42,36 +40,15 @@ class ProfileViewModel(private val userRepository: FirebaseUsersRepositoryImpl) 
         }
     }
 
-    private fun updateUsername(username: String) {
-        userRepository.updateUsername(username).addOnSuccessListener {
-            updateUserCondition[0] = true
-        }.addOnFailureListener {
-            updateUserCondition[0] = false
-            _updateUserState.postValue(UIState.Failure(it.message))
-        }
-    }
-
-    private fun updateEmail(email: String) {
-        userRepository.updateUserEmail(email).addOnSuccessListener {
-            updateUserCondition[1] = true
-        }.addOnFailureListener {
-            updateUserCondition[1] = false
-            _updateUserState.postValue(UIState.Failure(it.message))
-        }
-    }
-
-    fun updateUser(username: String, email: String) {
+    fun updateUser(username: String) {
         _updateUserState.postValue(UIState.Loading)
-
         if (user.value?.username != username) {
-            updateUsername(username)
-        }
-        if (user.value?.email != email) {
-            updateEmail(email)
-        }
-
-        if(!updateUserCondition.contains(false)){
-            _updateUserState.postValue(UIState.Success)
+            userRepository.updateUsername(username).addOnSuccessListener {
+                _updateUserState.postValue(UIState.Success("Successfully updated username!"))
+                _moveToProfileScreen.call()
+            }.addOnFailureListener {
+                _updateUserState.postValue(UIState.Failure(it.message))
+            }
             return
         }
         _updateUserState.postValue(UIState.Failure("Error while updating user data"))
@@ -79,7 +56,7 @@ class ProfileViewModel(private val userRepository: FirebaseUsersRepositoryImpl) 
 
     sealed class UIState {
         object Loading : UIState()
-        object Success : UIState()
+        data class Success(val message: String?) : UIState()
         data class Failure(val message: String?) : UIState()
     }
 }
