@@ -1,15 +1,15 @@
 package com.put.pt.poltext.screens.home.profile
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import com.put.pt.poltext.databinding.FragmentEditProfileBinding
-import com.put.pt.poltext.extensions.setOnSingleClickListener
-import com.put.pt.poltext.helper.ImagePicker
-import com.put.pt.poltext.utils.activity
+import com.put.pt.poltext.screens.auth.register.RegisterUsernamePassword
+import com.put.pt.poltext.utils.setOnSingleClickListener
+import com.put.pt.poltext.utils.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class EditProfileFragment : Fragment() {
@@ -29,34 +29,55 @@ class EditProfileFragment : Fragment() {
         observeLiveData()
     }
 
-    private fun registerOnClickListeners(){
+    private fun registerOnClickListeners() {
         binding.saveBtn.setOnSingleClickListener {
             val username = binding.name.text.toString()
-            val email = binding.email.text.toString()
-            viewModel.updateUser(username, email)
+            viewModel.updateUser(username)
         }
 
-        binding.editEmailBtn.setOnSingleClickListener{
-            binding.email.requestFocus()
-        }
-        binding.editNameBtn.setOnSingleClickListener{
+        binding.editNameBtn.setOnSingleClickListener {
             binding.name.requestFocus()
         }
 
-        binding.layout.setOnClickListener{
-            binding.email.clearFocus()
+        binding.layout.setOnClickListener {
             binding.name.clearFocus()
         }
     }
 
-    private fun observeLiveData(){
-        viewModel.moveToProfileScreen.observe(viewLifecycleOwner,{
-            mListener.onNavigateToProfileScreen()
-        })
-        viewModel.user.observe(viewLifecycleOwner,{ user ->
-            binding.name.setText(user.username)
-            binding.email.setText(user.email)
-        })
+    private fun observeLiveData() {
+        with(viewModel) {
+            moveToProfileScreen.observe(viewLifecycleOwner, {
+                mListener.onNavigateToProfileScreen()
+            })
+
+            user.observe(viewLifecycleOwner, { user ->
+                binding.name.setText(user.username)
+            })
+
+            updateUserState.observe(viewLifecycleOwner,{ state->
+                when(state){
+                    is ProfileViewModel.UIState.Success -> {
+                        context?.showToast(state.message)
+                        binding.saveBtn.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.GONE
+                    }
+                    is ProfileViewModel.UIState.Loading -> {
+                        binding.saveBtn.visibility = View.INVISIBLE
+                        binding.progressBar.visibility = View.VISIBLE
+                    }
+                    is ProfileViewModel.UIState.Failure -> {
+                        binding.saveBtn.visibility = View.VISIBLE
+                        binding.progressBar.visibility = View.GONE
+                        context?.showToast(state.message)
+                    }
+                }
+            })
+        }
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        mListener = context as Listener
     }
 
     override fun onCreateView(

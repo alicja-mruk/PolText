@@ -8,7 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.put.pt.poltext.databinding.FragmentProfileBinding
-import com.put.pt.poltext.extensions.setOnSingleClickListener
+import com.put.pt.poltext.utils.setOnSingleClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 

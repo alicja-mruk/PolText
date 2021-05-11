@@ -40,8 +40,11 @@ class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
             .update(DatabaseConstants.USERNAME, username).toUnit()
 
     override fun updateUserEmail(email: String): Task<Unit> =
-        database.collection(DatabaseConstants.USERS).document(currentUid())
-            .update(DatabaseConstants.EMAIL, email).toUnit()
+        auth.currentUser!!.updateEmail(email).onSuccessTask {
+            database.collection(DatabaseConstants.USERS).document(currentUid())
+                .update(DatabaseConstants.EMAIL, email).toUnit()
+        }
+
 
     override fun createUser(user: User, password: String): Task<Unit> {
         val _user = hashMapOf(
