@@ -106,11 +106,6 @@ class RegisterActivity : BaseActivity(),
                 startActivity(Intent(this, LoginActivity::class.java))
                 finish()
             }
-//          TODO: find the way to overcome 'LifecycleOwner is attempting to register while current state is RESUMED. LifecycleOwners must call register before they are STARTED.'
-//            is RegisterUsernamePassword -> {
-//               navHostFragment.navController.navigate(R.id.action_registerUsernamePassword_to_registerEmailPhoto)
-//            }
         }
     }
-
 }

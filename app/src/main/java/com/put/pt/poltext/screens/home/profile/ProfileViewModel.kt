@@ -24,7 +24,7 @@ class ProfileViewModel(private val userRepository: FirebaseUsersRepositoryImpl) 
     private val _updateUserState = MutableLiveData<UIState>()
     val updateUserState = _updateUserState
 
-    private var updateUserCondition = MutableList<Boolean>(3) {true}
+    private var updateUserCondition = MutableList<Boolean>(2) {true}
 
     init {
         getUser()
@@ -42,19 +42,17 @@ class ProfileViewModel(private val userRepository: FirebaseUsersRepositoryImpl) 
         }
     }
 
-    private fun uploadAndSetUserPhoto(localImage: Uri): Task<Unit> {
-        return userRepository.uploadUserPhoto(localImage).onSuccessTask { downloadUri ->
-            userRepository.updateUserPhoto(downloadUri).addOnSuccessListener {
-                updateUserCondition[0] = true
-            }
+    private fun updateUsername(username: String) {
+        userRepository.updateUsername(username).addOnSuccessListener {
+            updateUserCondition[0] = true
         }.addOnFailureListener {
             updateUserCondition[0] = false
             _updateUserState.postValue(UIState.Failure(it.message))
         }
     }
 
-    private fun updateUsername(username: String) {
-        userRepository.updateUsername(username).addOnSuccessListener {
+    private fun updateEmail(email: String) {
+        userRepository.updateUserEmail(email).addOnSuccessListener {
             updateUserCondition[1] = true
         }.addOnFailureListener {
             updateUserCondition[1] = false
@@ -62,21 +60,9 @@ class ProfileViewModel(private val userRepository: FirebaseUsersRepositoryImpl) 
         }
     }
 
-    private fun updateEmail(email: String) {
-        userRepository.updateUserEmail(email).addOnSuccessListener {
-            updateUserCondition[2] = true
-        }.addOnFailureListener {
-            updateUserCondition[2] = false
-            _updateUserState.postValue(UIState.Failure(it.message))
-        }
-    }
-
-    fun updateUser(photoUrl: String, username: String, email: String) {
+    fun updateUser(username: String, email: String) {
         _updateUserState.postValue(UIState.Loading)
 
-        if (user.value?.photoUrl != photoUrl) {
-            uploadAndSetUserPhoto(Uri.parse(photoUrl))
-        }
         if (user.value?.username != username) {
             updateUsername(username)
         }

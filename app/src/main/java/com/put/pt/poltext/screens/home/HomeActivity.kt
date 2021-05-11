@@ -1,5 +1,6 @@
 package com.put.pt.poltext.screens.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -7,6 +8,7 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.put.pt.poltext.R
 import com.put.pt.poltext.databinding.ActivityHomeBinding
@@ -15,6 +17,8 @@ import com.put.pt.poltext.navigator.NavigationItems
 import com.put.pt.poltext.navigator.NavigationRVAdapter
 import com.put.pt.poltext.navigator.RecyclerTouchListener
 import com.put.pt.poltext.screens.BaseActivity
+import com.put.pt.poltext.screens.auth.login.LoginActivity
+import com.put.pt.poltext.screens.auth.register.RegisterEmailPhoto
 import com.put.pt.poltext.screens.home.profile.EditProfileFragment
 import com.put.pt.poltext.screens.home.profile.ProfileFragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -96,6 +100,15 @@ class HomeActivity : BaseActivity(), ProfileFragment.Listener, EditProfileFragme
     }
 
     override fun onBackPressed() {
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_home) as NavHostFragment
+
+        when (navHostFragment.childFragmentManager.fragments[0]) {
+            is EditProfileFragment -> {
+                navHostFragment.navController.navigate(R.id.action_editProfileFragment_to_profileFragment)
+                return
+            }
+        }
+
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
             drawerLayout.closeDrawer(GravityCompat.START)
         } else {
