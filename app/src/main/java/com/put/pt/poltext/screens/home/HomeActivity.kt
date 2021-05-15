@@ -1,6 +1,5 @@
 package com.put.pt.poltext.screens.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.View
@@ -17,10 +16,9 @@ import com.put.pt.poltext.navigator.NavigationItems
 import com.put.pt.poltext.navigator.NavigationRVAdapter
 import com.put.pt.poltext.navigator.RecyclerTouchListener
 import com.put.pt.poltext.screens.BaseActivity
-import com.put.pt.poltext.screens.auth.login.LoginActivity
-import com.put.pt.poltext.screens.auth.register.RegisterEmailPhoto
 import com.put.pt.poltext.screens.home.profile.EditProfileFragment
 import com.put.pt.poltext.screens.home.profile.ProfileFragment
+import com.put.pt.poltext.screens.home.public_chat.PublicChatViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -32,7 +30,7 @@ class HomeActivity : BaseActivity(), ProfileFragment.Listener, EditProfileFragme
     lateinit var drawerLayout: DrawerLayout
     private lateinit var adapter: NavigationRVAdapter
 
-    private val viewModel by viewModel<ChatViewModel>()
+    private val viewModel by viewModel<PublicChatViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +53,7 @@ class HomeActivity : BaseActivity(), ProfileFragment.Listener, EditProfileFragme
             override fun onClick(view: View, position: Int) {
                 when (position) {
                     0 -> {
-                        navController.navigate(R.id.chatPrivateFragment)
+                        navController.navigate(R.id.chatPrivateFragmentLobby)
                     }
                     1 -> {
                         navController.navigate(R.id.chatPublicFragment)

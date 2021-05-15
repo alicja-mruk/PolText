@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.put.pt.poltext.databinding.FragmentEditProfileBinding
-import com.put.pt.poltext.screens.home.ChatViewModel
+import com.put.pt.poltext.screens.home.public_chat.PublicChatViewModel
 import com.put.pt.poltext.utils.setOnSingleClickListener
 import com.put.pt.poltext.utils.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,7 +17,7 @@ class EditProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<ProfileViewModel>()
-    private val chatViewModel by viewModel<ChatViewModel>()
+    private val chatViewModel by viewModel<PublicChatViewModel>()
 
     private lateinit var mListener: Listener
 

@@ -1,4 +1,4 @@
-package com.put.pt.poltext.screens.home
+package com.put.pt.poltext.screens.home.public_chat
 
 import android.util.Log
 import androidx.lifecycle.LiveData
@@ -17,7 +17,7 @@ import com.put.pt.poltext.screens.State
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatViewModel(private val userRepository: FirebaseUsersRepositoryImpl) : ViewModel() {
+class PublicChatViewModel(private val userRepository: FirebaseUsersRepositoryImpl) : ViewModel() {
     var user = MutableLiveData<User>()
     val messages = MutableLiveData<ArrayList<PublicChatMessageParsed>>()
 

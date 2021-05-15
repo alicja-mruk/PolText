@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottom_nav"
-    app:startDestination="@id/chatPrivateFragment">
+    app:startDestination="@id/chatPrivateFragmentLobby">
 
     <fragment
         android:id="@+id/chatPrivateFragment"
         android:name="com.put.pt.poltext.screens.home.private_chat.ChatPrivateFragment"
         android:label="fragment_chat_private"
-        tools:layout="@layout/fragment_chat_private" >
-    </fragment>
+        tools:layout="@layout/fragment_chat_private" />
     <fragment
         android:id="@+id/chatPublicFragment"
         android:name="com.put.pt.poltext.screens.home.public_chat.ChatPublicFragment"
@@ -30,10 +29,15 @@
         android:id="@+id/editProfileFragment"
         android:name="com.put.pt.poltext.screens.home.profile.EditProfileFragment"
         android:label="fragment_edit_profile"
-        tools:layout="@layout/fragment_edit_profile" >
+        tools:layout="@layout/fragment_edit_profile">
         <action
             android:id="@+id/action_editProfileFragment_to_profileFragment"
             app:destination="@id/profileFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/chatPrivateFragmentLobby"
+        android:name="com.put.pt.poltext.screens.home.private_chat.ChatPrivateFragmentLobby"
+        android:label="fragment_chat_private_lobby"
+        tools:layout="@layout/fragment_chat_private_lobby" />
 
 </navigation>
