@@ -55,8 +55,8 @@ class EditProfileFragment : Fragment() {
                 binding.name.setText(user.username)
             })
 
-            updateUserState.observe(viewLifecycleOwner,{ state->
-                when(state){
+            updateUserState.observe(viewLifecycleOwner, { state ->
+                when (state) {
                     is ProfileViewModel.UIState.Success -> {
                         chatViewModel.refetchMessages()
                         context?.showToast(state.message)
