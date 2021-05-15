@@ -9,7 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.put.pt.poltext.R
-import com.put.pt.poltext.model.PublicChatMessage
+import com.put.pt.poltext.model.PublicChatMessageParsed
 import com.put.pt.poltext.screens.home.ChatViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
@@ -18,7 +18,7 @@ class ChatPublicAdapter @ExperimentalCoroutinesApi constructor(
     fragment: ChatPublicFragment
 ) :
     RecyclerView.Adapter<ChatPublicAdapter.ViewHolder>() {
-    var messages: ArrayList<PublicChatMessage> = ArrayList()
+    var messages: ArrayList<PublicChatMessageParsed> = ArrayList()
 
     init {
         viewModel.messages.observe(fragment.viewLifecycleOwner, {
@@ -46,7 +46,7 @@ class ChatPublicAdapter @ExperimentalCoroutinesApi constructor(
         val name = view.findViewById(R.id.name_public_row) as TextView
         val image = view.findViewById(R.id.image_public_row) as ImageView
 
-        fun bind(item: PublicChatMessage, position: Int) {
+        fun bind(item: PublicChatMessageParsed, position: Int) {
             message.text = item.message
             timestamp.text = item.timestamp
             name.text = item.user.username

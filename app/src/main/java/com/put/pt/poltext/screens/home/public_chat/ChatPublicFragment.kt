@@ -14,13 +14,14 @@ import com.put.pt.poltext.screens.auth.login.LoginActivity
 import com.put.pt.poltext.screens.home.ChatViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
 class ChatPublicFragment : Fragment() {
     private var _binding: FragmentChatPublicBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by sharedViewModel<ChatViewModel>()
+    private val viewModel by viewModel<ChatViewModel>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var adapter: ChatPublicAdapter? = null
 
@@ -65,7 +66,10 @@ class ChatPublicFragment : Fragment() {
             state.observe(viewLifecycleOwner, { state ->
                 when (state) {
                     State.LOADING -> shouldProgressBarBeShown(true)
-                    State.SUCCESS -> shouldProgressBarBeShown(false)
+                    State.SUCCESS -> {
+                        shouldProgressBarBeShown(false)
+                        refreshView()
+                    }
                     else -> Unit
                 }
             })
@@ -97,8 +101,11 @@ class ChatPublicFragment : Fragment() {
             }
             binding.progressBar.visibility = View.GONE
         }
+    }
 
-
+    private fun refreshView() {
+        binding.publicChatLayout.visibility = View.GONE
+        binding.publicChatLayout.visibility = View.VISIBLE
     }
 
     private fun startLoginActivity() {

@@ -11,10 +11,10 @@ import com.put.pt.poltext.databinding.FragmentProfileBinding
 import com.put.pt.poltext.utils.setOnSingleClickListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-
 class ProfileFragment : Fragment() {
     private var _binding: FragmentProfileBinding? = null
     private val binding get() = _binding!!
+
     private val viewModel by viewModel<ProfileViewModel>()
 
     private lateinit var mListener: Listener

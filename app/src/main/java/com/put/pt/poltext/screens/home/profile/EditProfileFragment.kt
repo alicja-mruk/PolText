@@ -7,7 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.put.pt.poltext.databinding.FragmentEditProfileBinding
-import com.put.pt.poltext.screens.auth.register.RegisterUsernamePassword
+import com.put.pt.poltext.screens.home.ChatViewModel
 import com.put.pt.poltext.utils.setOnSingleClickListener
 import com.put.pt.poltext.utils.showToast
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -17,6 +17,7 @@ class EditProfileFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val viewModel by viewModel<ProfileViewModel>()
+    private val chatViewModel by viewModel<ChatViewModel>()
 
     private lateinit var mListener: Listener
 
@@ -57,6 +58,7 @@ class EditProfileFragment : Fragment() {
             updateUserState.observe(viewLifecycleOwner,{ state->
                 when(state){
                     is ProfileViewModel.UIState.Success -> {
+                        chatViewModel.refetchMessages()
                         context?.showToast(state.message)
                         binding.saveBtn.visibility = View.VISIBLE
                         binding.progressBar.visibility = View.GONE
