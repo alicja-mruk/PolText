@@ -19,6 +19,7 @@ class ChatPrivateAdapter @ExperimentalCoroutinesApi constructor(
 ) :
     RecyclerView.Adapter<ChatPrivateAdapter.ViewHolder>() {
     var users: ArrayList<User> = ArrayList()
+    var onItemClick: ((User) -> Unit)? = null
 
     init {
         viewModel.users.observe(fragment.viewLifecycleOwner, {
@@ -40,9 +41,15 @@ class ChatPrivateAdapter @ExperimentalCoroutinesApi constructor(
 
     override fun getItemCount(): Int = users.size
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val name = view.findViewById(R.id.user_private_profile_username) as TextView
         val image = view.findViewById(R.id.user_private_profile_image) as ImageView
+
+        init {
+            itemView.setOnClickListener {
+                onItemClick?.invoke(users[adapterPosition])
+            }
+        }
 
         fun bind(item: User) {
             name.text = item.username
