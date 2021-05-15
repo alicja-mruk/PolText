@@ -4,12 +4,14 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
 import com.put.pt.poltext.common.SingleLiveEvent
 import com.put.pt.poltext.data.firebase.common.auth
 import com.put.pt.poltext.model.PublicChatMessage
 import com.put.pt.poltext.model.PublicChatMessageParsed
 import com.put.pt.poltext.model.User
+import com.put.pt.poltext.repository.users.DatabaseConstants
 import com.put.pt.poltext.repository.users.FirebaseUsersRepositoryImpl
 import com.put.pt.poltext.screens.State
 import java.text.SimpleDateFormat
@@ -44,43 +46,45 @@ class ChatViewModel(private val userRepository: FirebaseUsersRepositoryImpl) : V
     }
 
     private fun setPublicMessagesListener() {
-        userRepository.getPublicChannelMessages().addSnapshotListener { value, e ->
-            if (e != null) {
-                Log.w(TAG, "Listen failed.", e)
-                return@addSnapshotListener
-            }
+        userRepository.getPublicChannelMessages()
+            .orderBy(DatabaseConstants.TIMESTAMP, Query.Direction.ASCENDING)
+            .addSnapshotListener { value, e ->
+                if (e != null) {
+                    Log.w(TAG, "Listen failed.", e)
+                    return@addSnapshotListener
+                }
 
-            val data = ArrayList<PublicChatMessage>()
-            for (doc in value!!) {
-                data.add(doc.toObject(PublicChatMessage::class.java))
-            }
+                val data = ArrayList<PublicChatMessage>()
+                for (doc in value!!) {
+                    data.add(doc.toObject(PublicChatMessage::class.java))
+                }
 
-            val parsedData = ArrayList<PublicChatMessageParsed>()
+                val parsedData = ArrayList<PublicChatMessageParsed>()
 
-            data.forEach { item ->
-                userRepository.getUser(item.uid).get().addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        val fetchedUser = task.result?.toObject<User>()
-                        parsedData.add(
-                            PublicChatMessageParsed(
-                                fetchedUser!!,
-                                item.message,
-                                item.timestamp
+                data.forEach { item ->
+                    userRepository.getUser(item.uid).get().addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            val fetchedUser = task.result?.toObject<User>()
+                            parsedData.add(
+                                PublicChatMessageParsed(
+                                    fetchedUser!!,
+                                    item.message,
+                                    item.timestamp
+                                )
                             )
-                        )
-                        if (parsedData.size == data.size) {
-                            messages.postValue(parsedData)
-                            _state.value = State.SUCCESS
-                            _notifyDataSetChanged.value = Unit
+                            if (parsedData.size == data.size) {
+                                messages.postValue(parsedData)
+                                _state.value = State.SUCCESS
+                                _notifyDataSetChanged.value = Unit
+                            }
                         }
                     }
                 }
-            }
 
-        }
+            }
     }
 
-    fun refetchMessages(){
+    fun refetchMessages() {
         messages.value?.clear()
         setPublicMessagesListener()
 

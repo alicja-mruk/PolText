@@ -100,7 +100,8 @@ class HomeActivity : BaseActivity(), ProfileFragment.Listener, EditProfileFragme
     }
 
     override fun onBackPressed() {
-        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment_home) as NavHostFragment
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment_home) as NavHostFragment
 
         when (navHostFragment.childFragmentManager.fragments[0]) {
             is EditProfileFragment -> {
