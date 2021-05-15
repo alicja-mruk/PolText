@@ -8,28 +8,29 @@ import com.google.firebase.firestore.ktx.toObject
 import com.put.pt.poltext.common.SingleLiveEvent
 import com.put.pt.poltext.data.firebase.common.auth
 import com.put.pt.poltext.model.PublicChatMessage
+import com.put.pt.poltext.model.PublicChatMessageParsed
 import com.put.pt.poltext.model.User
 import com.put.pt.poltext.repository.users.FirebaseUsersRepositoryImpl
 import com.put.pt.poltext.screens.State
 import java.text.SimpleDateFormat
 import java.util.*
 
-class ChatViewModel(private val userRepository: FirebaseUsersRepositoryImpl): ViewModel(){
+class ChatViewModel(private val userRepository: FirebaseUsersRepositoryImpl) : ViewModel() {
     var user = MutableLiveData<User>()
-    val messages = MutableLiveData<ArrayList<PublicChatMessage>>()
+    val messages = MutableLiveData<ArrayList<PublicChatMessageParsed>>()
 
     private val _resetInput = SingleLiveEvent<Unit>()
-    val resetInput : LiveData<Unit> = _resetInput
+    val resetInput: LiveData<Unit> = _resetInput
     private val _notifyDataSetChanged = SingleLiveEvent<Unit>()
-    val notifyDataSetChanged : LiveData<Unit> = _notifyDataSetChanged
+    val notifyDataSetChanged: LiveData<Unit> = _notifyDataSetChanged
     private val _moveToLoginScreen = SingleLiveEvent<Unit>()
-    val moveToLoginScreen : LiveData<Unit> = _moveToLoginScreen
+    val moveToLoginScreen: LiveData<Unit> = _moveToLoginScreen
 
-    private val _state =  MutableLiveData(State.EMPTY)
+    private val _state = MutableLiveData(State.EMPTY)
     val state = _state
 
     init {
-        if (auth.currentUser != null){
+        if (auth.currentUser != null) {
             _state.value = State.LOADING
             userRepository.getUser(auth.currentUser.uid).get().addOnCompleteListener { task ->
                 if (task.isSuccessful) {
@@ -37,13 +38,12 @@ class ChatViewModel(private val userRepository: FirebaseUsersRepositoryImpl): Vi
                     setPublicMessagesListener()
                 }
             }
-        }
-        else {
+        } else {
             _moveToLoginScreen.call()
         }
     }
 
-    private fun setPublicMessagesListener(){
+    private fun setPublicMessagesListener() {
         userRepository.getPublicChannelMessages().addSnapshotListener { value, e ->
             if (e != null) {
                 Log.w(TAG, "Listen failed.", e)
@@ -55,17 +55,43 @@ class ChatViewModel(private val userRepository: FirebaseUsersRepositoryImpl): Vi
                 data.add(doc.toObject(PublicChatMessage::class.java))
             }
 
-            messages.postValue(data)
-            _state.value = State.SUCCESS
-            _notifyDataSetChanged.value = Unit
+            val parsedData = ArrayList<PublicChatMessageParsed>()
+
+            data.forEach { item ->
+                userRepository.getUser(item.uid).get().addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        val fetchedUser = task.result?.toObject<User>()
+                        parsedData.add(
+                            PublicChatMessageParsed(
+                                fetchedUser!!,
+                                item.message,
+                                item.timestamp
+                            )
+                        )
+                        if (parsedData.size == data.size) {
+                            messages.postValue(parsedData)
+                            _state.value = State.SUCCESS
+                            _notifyDataSetChanged.value = Unit
+                        }
+                    }
+                }
+            }
+
         }
+    }
+
+    fun refetchMessages(){
+        messages.value?.clear()
+        setPublicMessagesListener()
+
     }
 
     fun onSendMessage(message: String) {
         if (message.isNotEmpty()) {
-            val timestamp: String = SimpleDateFormat( "dd/MM/yyyy hh:mm:ss a", Locale.getDefault()).format(Date())
+            val timestamp: String =
+                SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.getDefault()).format(Date())
             user.value?.let {
-                userRepository.sendMessageToPublicChannel(message, it, timestamp)
+                userRepository.sendMessageToPublicChannel(message, it.uid, timestamp)
                     .addOnSuccessListener {
                         _resetInput.value = Unit
                     }

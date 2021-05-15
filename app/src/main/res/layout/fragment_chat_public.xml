@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/public_chat_layout"
     tools:context=".screens.home.public_chat.ChatPublicFragment">
 
 
@@ -11,7 +12,7 @@
         android:id="@+id/recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="invisible"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -21,6 +22,7 @@
         tools:listitem="@layout/chat_public_row" />
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/no_messages_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
