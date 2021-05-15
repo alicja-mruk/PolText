@@ -11,18 +11,23 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.put.pt.poltext.R
 import com.put.pt.poltext.databinding.ActivityHomeBinding
+import com.put.pt.poltext.model.User
 import com.put.pt.poltext.navigator.ClickListener
 import com.put.pt.poltext.navigator.NavigationItems
 import com.put.pt.poltext.navigator.NavigationRVAdapter
 import com.put.pt.poltext.navigator.RecyclerTouchListener
 import com.put.pt.poltext.screens.BaseActivity
+import com.put.pt.poltext.screens.home.private_chat.ChatPrivateFragmentLobby
+import com.put.pt.poltext.screens.home.private_chat.ChatPrivateFragmentLobby.Companion.USER_KEY
 import com.put.pt.poltext.screens.home.profile.EditProfileFragment
 import com.put.pt.poltext.screens.home.profile.ProfileFragment
 import com.put.pt.poltext.screens.home.public_chat.PublicChatViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
-class HomeActivity : BaseActivity(), ProfileFragment.Listener, EditProfileFragment.Listener {
+@ExperimentalCoroutinesApi
+class HomeActivity : BaseActivity(), ProfileFragment.Listener, EditProfileFragment.Listener, ChatPrivateFragmentLobby.Listener {
 
     private var _binding: ActivityHomeBinding? = null
     private val binding get() = _binding!!
@@ -125,5 +130,11 @@ class HomeActivity : BaseActivity(), ProfileFragment.Listener, EditProfileFragme
 
     override fun onNavigateToProfileScreen() {
         navController.navigate(R.id.profileFragment)
+    }
+
+    override fun onNavigateToChatPublicFragment(user: User) {
+        val bundle = Bundle()
+        bundle.putSerializable(USER_KEY, user)
+        navController.navigate(R.id.chatPrivateFragment, bundle)
     }
 }
