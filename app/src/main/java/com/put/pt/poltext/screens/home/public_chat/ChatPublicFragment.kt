@@ -11,9 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.put.pt.poltext.databinding.FragmentChatPublicBinding
 import com.put.pt.poltext.screens.State
 import com.put.pt.poltext.screens.auth.login.LoginActivity
-import com.put.pt.poltext.screens.home.ChatViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 @ExperimentalCoroutinesApi
@@ -21,7 +19,7 @@ class ChatPublicFragment : Fragment() {
     private var _binding: FragmentChatPublicBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel by viewModel<ChatViewModel>()
+    private val viewModel by viewModel<PublicChatViewModel>()
     private lateinit var linearLayoutManager: LinearLayoutManager
     private var adapter: ChatPublicAdapter? = null
 

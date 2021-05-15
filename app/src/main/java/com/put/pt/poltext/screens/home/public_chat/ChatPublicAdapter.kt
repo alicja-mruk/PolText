@@ -10,11 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.put.pt.poltext.R
 import com.put.pt.poltext.model.PublicChatMessageParsed
-import com.put.pt.poltext.screens.home.ChatViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 class ChatPublicAdapter @ExperimentalCoroutinesApi constructor(
-    viewModel: ChatViewModel,
+    viewModel: PublicChatViewModel,
     fragment: ChatPublicFragment
 ) :
     RecyclerView.Adapter<ChatPublicAdapter.ViewHolder>() {
