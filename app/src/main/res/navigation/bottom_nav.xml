@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bottom_nav"
+    app:startDestination="@id/chatPrivateFragmentLobby">
+
+    <fragment
+        android:id="@+id/chatPrivateFragment"
+        android:name="com.put.pt.poltext.screens.home.private_chat.ChatPrivateFragment"
+        android:label="fragment_chat_private"
+        tools:layout="@layout/fragment_chat_private" />
+    <fragment
+        android:id="@+id/chatPublicFragment"
+        android:name="com.put.pt.poltext.screens.home.public_chat.ChatPublicFragment"
+        android:label="fragment_chat_public"
+        tools:layout="@layout/fragment_chat_public" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.put.pt.poltext.screens.home.profile.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.put.pt.poltext.screens.home.settings.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+    <fragment
+        android:id="@+id/editProfileFragment"
+        android:name="com.put.pt.poltext.screens.home.profile.EditProfileFragment"
+        android:label="fragment_edit_profile"
+        tools:layout="@layout/fragment_edit_profile">
+        <action
+            android:id="@+id/action_editProfileFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chatPrivateFragmentLobby"
+        android:name="com.put.pt.poltext.screens.home.private_chat.ChatPrivateFragmentLobby"
+        android:label="fragment_chat_private_lobby"
+        tools:layout="@layout/fragment_chat_private_lobby" />
+
+</navigation>

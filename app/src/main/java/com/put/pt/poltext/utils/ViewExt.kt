@@ -1,4 +1,4 @@
-package com.put.pt.poltext.extensions
+package com.put.pt.poltext.utils
 
 import android.view.View
 import com.put.pt.poltext.helper.OnSingleClickListener

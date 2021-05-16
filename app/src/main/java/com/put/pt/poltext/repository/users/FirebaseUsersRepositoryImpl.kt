@@ -11,6 +11,7 @@ import com.put.pt.poltext.common.toUnit
 import com.put.pt.poltext.data.firebase.common.auth
 import com.put.pt.poltext.data.firebase.common.storage
 import com.put.pt.poltext.model.User
+import java.util.*
 
 
 class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
@@ -34,6 +35,16 @@ class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
         database.collection(DatabaseConstants.USERS).document(currentUid())
             .update(DatabaseConstants.PHOTO_URL, downloadUrl.toString()).toUnit()
 
+    override fun updateUsername(username: String): Task<Unit> =
+        database.collection(DatabaseConstants.USERS).document(currentUid())
+            .update(DatabaseConstants.USERNAME, username).toUnit()
+
+    override fun updateUserEmail(email: String): Task<Unit> =
+        auth.currentUser!!.updateEmail(email).onSuccessTask {
+            database.collection(DatabaseConstants.USERS).document(currentUid())
+                .update(DatabaseConstants.EMAIL, email).toUnit()
+        }
+
 
     override fun createUser(user: User, password: String): Task<Unit> {
         val _user = hashMapOf(
@@ -49,7 +60,8 @@ class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
 
     override fun currentUid(): String = auth.currentUser!!.uid
 
-    override fun getUser(uid: String): DocumentReference = database.collection(DatabaseConstants.USERS).document(uid)
+    override fun getUser(uid: String): DocumentReference =
+        database.collection(DatabaseConstants.USERS).document(uid)
 
     override fun getUsers(): CollectionReference = database.collection(DatabaseConstants.USERS)
 
@@ -58,4 +70,39 @@ class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
             val signInMethods = it?.signInMethods ?: emptyList<String>()
             Tasks.forResult(signInMethods.isNotEmpty())
         }
+
+    override fun sendMessageToPublicChannel(
+        message: String,
+        userId: String,
+        timestamp: String
+    ): Task<Unit> {
+        val randomUUID = UUID.randomUUID().toString()
+        val _message = hashMapOf(
+            DatabaseConstants.ID to randomUUID,
+            DatabaseConstants.UID to userId,
+            DatabaseConstants.MESSAGE to message,
+            DatabaseConstants.TIMESTAMP to timestamp
+        )
+        return database.collection(DatabaseConstants.PUBLIC_MESSAGES)
+            .document(randomUUID).set(_message).toUnit()
+    }
+
+    override fun getPublicChannelMessages(): CollectionReference =
+        database.collection(DatabaseConstants.PUBLIC_MESSAGES)
+
+    override fun sendMessageToPrivateChannel(message: String, userToUid: String, userFromUid: String): Task<Unit> {
+        val randomUUID = UUID.randomUUID().toString()
+        val _message = hashMapOf(
+            DatabaseConstants.ID to randomUUID,
+            DatabaseConstants.USER_TO_UID to userToUid,
+            DatabaseConstants.USER_FROM_UID to userFromUid,
+            DatabaseConstants.MESSAGE to message,
+        )
+        return database.collection(DatabaseConstants.PRIVATE_MESSAGES)
+            .document(randomUUID).set(_message).toUnit()
+    }
+
+    override fun getPrivateChannelMessages(): CollectionReference =
+        database.collection(DatabaseConstants.PRIVATE_MESSAGES)
+
 }
