@@ -1,10 +1,8 @@
 package com.put.pt.poltext.screens.home.profile
 
-import android.net.Uri
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.google.android.gms.tasks.Task
 import com.google.firebase.firestore.ktx.toObject
 import com.put.pt.poltext.common.SingleLiveEvent
 import com.put.pt.poltext.data.firebase.common.auth

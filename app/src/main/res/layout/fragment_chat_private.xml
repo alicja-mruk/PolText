@@ -9,6 +9,16 @@
         android:orientation="vertical"
         tools:context=".screens.home.private_chat.ChatPrivateFragment">
 
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/recycler_view"
+            app:layout_constraintEnd_toEndOf="@+id/recycler_view"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/recycler_view" />
+
         <EditText
             android:id="@+id/edit_text"
             android:layout_width="0dp"
@@ -49,5 +59,18 @@
             tools:itemCount="5"
             tools:listitem="@layout/private_chat_send_row" />
 
+        <TextView
+            android:id="@+id/empty_text"
+            style="@style/Header"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/no_messages"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/recycler_view"
+            app:layout_constraintEnd_toEndOf="@+id/recycler_view"
+            app:layout_constraintStart_toStartOf="@+id/recycler_view"
+            app:layout_constraintTop_toTopOf="parent" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

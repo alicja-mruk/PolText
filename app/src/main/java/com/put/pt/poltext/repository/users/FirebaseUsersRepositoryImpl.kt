@@ -76,15 +76,33 @@ class FirebaseUsersRepositoryImpl : FirebaseUsersRepository {
         userId: String,
         timestamp: String
     ): Task<Unit> {
+        val randomUUID = UUID.randomUUID().toString()
         val _message = hashMapOf(
+            DatabaseConstants.ID to randomUUID,
             DatabaseConstants.UID to userId,
             DatabaseConstants.MESSAGE to message,
             DatabaseConstants.TIMESTAMP to timestamp
         )
         return database.collection(DatabaseConstants.PUBLIC_MESSAGES)
-            .document(UUID.randomUUID().toString()).set(_message).toUnit()
+            .document(randomUUID).set(_message).toUnit()
     }
 
     override fun getPublicChannelMessages(): CollectionReference =
         database.collection(DatabaseConstants.PUBLIC_MESSAGES)
+
+    override fun sendMessageToPrivateChannel(message: String, userToUid: String, userFromUid: String): Task<Unit> {
+        val randomUUID = UUID.randomUUID().toString()
+        val _message = hashMapOf(
+            DatabaseConstants.ID to randomUUID,
+            DatabaseConstants.USER_TO_UID to userToUid,
+            DatabaseConstants.USER_FROM_UID to userFromUid,
+            DatabaseConstants.MESSAGE to message,
+        )
+        return database.collection(DatabaseConstants.PRIVATE_MESSAGES)
+            .document(randomUUID).set(_message).toUnit()
+    }
+
+    override fun getPrivateChannelMessages(): CollectionReference =
+        database.collection(DatabaseConstants.PRIVATE_MESSAGES)
+
 }
