@@ -14,6 +14,7 @@ import com.put.pt.poltext.screens.State
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class PrivateChatViewModel(private val userRepository: FirebaseUsersRepositoryImpl) : ViewModel() {
     val users = MutableLiveData<ArrayList<User>>()
     val currentUser = MutableLiveData<User>()
