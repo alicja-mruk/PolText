@@ -6,16 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.navigation.NavController
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.put.pt.poltext.R
 import com.put.pt.poltext.databinding.FragmentChatPrivateLobbyBinding
 import com.put.pt.poltext.model.User
 import com.put.pt.poltext.screens.State
-import com.put.pt.poltext.screens.home.profile.ProfileFragment
-import com.put.pt.poltext.screens.home.public_chat.ChatPublicAdapter
-import com.put.pt.poltext.screens.home.public_chat.PublicChatViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.androidx.viewmodel.ext.android.viewModel
 @ExperimentalCoroutinesApi
@@ -25,7 +19,7 @@ class ChatPrivateFragmentLobby : Fragment() {
 
     private val viewModel by viewModel<PrivateChatViewModel>()
     private lateinit var linearLayoutManager: LinearLayoutManager
-    private var adapter: ChatPrivateAdapter? = null
+    private var adapter: UsersAdapter? = null
 
     private lateinit var mListener: Listener
 
@@ -91,7 +85,7 @@ class ChatPrivateFragmentLobby : Fragment() {
 
     private fun setUpAdapter() {
         viewModel.let { viewModel ->
-            adapter = ChatPrivateAdapter(viewModel, this)
+            adapter = UsersAdapter(viewModel, this)
             binding.usersRecyclerView.adapter = adapter
         }
 

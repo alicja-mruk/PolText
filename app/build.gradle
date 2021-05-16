@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.gms.google-services'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -17,9 +18,12 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
     buildFeatures {
         viewBinding true
+        dataBinding true
     }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -34,6 +38,7 @@ android {
         jvmTarget = '1.8'
     }
 }
+
 
 dependencies {
 
@@ -57,14 +62,13 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth'
 
     // Database
-//    implementation 'com.google.firebase:firebase-database-ktx'
     implementation 'com.google.firebase:firebase-firestore-ktx'
 
     //FireStorage
     implementation 'com.google.firebase:firebase-storage'
 
     // Activity KTX for viewModels()
-    implementation "androidx.activity:activity-ktx:1.2.2"
+    implementation "androidx.activity:activity-ktx:1.2.3"
 
     // Architectural Components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1"
@@ -107,10 +111,16 @@ dependencies {
     def koin_version = "3.0.1"
     // Koin main features for Android (Scope,ViewModel ...)
     implementation "io.insert-koin:koin-android:$koin_version"
-// Koin Android - experimental builder extensions
+    // Koin Android - experimental builder extensions
     implementation "io.insert-koin:koin-android-ext:$koin_version"
-// Koin for Jetpack WorkManager
+    // Koin for Jetpack WorkManager
     implementation "io.insert-koin:koin-androidx-workmanager:$koin_version"
-// Koin for Jetpack Compose (unstable version)
+    // Koin for Jetpack Compose (unstable version)
     implementation "io.insert-koin:koin-androidx-compose:$koin_version"
+
+   //groupie adapter
+    def groupie_version = "2.9.0"
+    implementation "com.xwray:groupie:$groupie_version"
+    implementation "com.xwray:groupie-databinding:$groupie_version"
+    implementation "com.xwray:groupie-kotlin-android-extensions:$groupie_version"
 }

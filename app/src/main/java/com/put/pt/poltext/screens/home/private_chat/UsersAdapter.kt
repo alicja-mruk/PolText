@@ -9,15 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.put.pt.poltext.R
 import com.put.pt.poltext.model.User
-import com.put.pt.poltext.screens.home.public_chat.ChatPublicFragment
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 
 
-class ChatPrivateAdapter @ExperimentalCoroutinesApi constructor(
+class UsersAdapter @ExperimentalCoroutinesApi constructor(
     viewModel: PrivateChatViewModel,
     fragment: ChatPrivateFragmentLobby
 ) :
-    RecyclerView.Adapter<ChatPrivateAdapter.ViewHolder>() {
+    RecyclerView.Adapter<UsersAdapter.ViewHolder>() {
     var users: ArrayList<User> = ArrayList()
     var onItemClick: ((User) -> Unit)? = null
 

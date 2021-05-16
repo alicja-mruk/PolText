@@ -35,4 +35,5 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="go_back">Go back</string>
     <string name="save">Save</string>
+    <string name="enter_message">Enter message....</string>
 </resources>
