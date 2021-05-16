@@ -100,9 +100,9 @@ class ChatPrivateFragment : Fragment() {
     private fun bindOnClickListeners() {
         binding.button.setOnClickListener {
             val text = binding.editText.text.toString()
+            viewModel.listenToMessages()
             viewModel.sendMessage(text, userTo.uid)
             binding.editText.text.clear()
-            binding.recyclerView.scrollToPosition(binding.recyclerView.adapter!!.itemCount.minus(1))
         }
     }
 

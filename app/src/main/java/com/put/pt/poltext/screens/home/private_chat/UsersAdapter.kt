@@ -52,8 +52,10 @@ class UsersAdapter @ExperimentalCoroutinesApi constructor(
 
         fun bind(item: User) {
             name.text = item.username
-            item.photoUrl?.let {
-                Glide.with(itemView).load(it).into(image)
+            if (item.photoUrl != "") {
+                item.photoUrl?.let {
+                    Glide.with(itemView).load(it).into(image)
+                }
             }
         }
     }

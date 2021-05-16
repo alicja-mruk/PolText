@@ -2,14 +2,17 @@ package com.put.pt.poltext.screens.home.private_chat
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
 import com.put.pt.poltext.data.firebase.common.auth
 import com.put.pt.poltext.model.PrivateChatMessage
 import com.put.pt.poltext.model.User
+import com.put.pt.poltext.repository.users.DatabaseConstants
 import com.put.pt.poltext.repository.users.FirebaseUsersRepositoryImpl
 import com.put.pt.poltext.screens.State
-import java.util.ArrayList
+import java.text.SimpleDateFormat
+import java.util.*
 
 class PrivateChatViewModel(private val userRepository: FirebaseUsersRepositoryImpl) : ViewModel() {
     val users = MutableLiveData<ArrayList<User>>()
@@ -56,37 +59,46 @@ class PrivateChatViewModel(private val userRepository: FirebaseUsersRepositoryIm
         if (auth.currentUser == null) return
 
         _chatItemState.value = ChatItemState.SendMessageLoading
-        userRepository.sendMessageToPrivateChannel(message, userToUid, auth.currentUser.uid)
+        val timestamp: String =
+            SimpleDateFormat("dd/MM/yyyy hh:mm:ss a", Locale.getDefault()).format(Date())
+        userRepository.sendMessageToPrivateChannel(
+            message,
+            userToUid,
+            auth.currentUser.uid,
+            timestamp
+        )
             .addOnSuccessListener {
                 _chatItemState.value = ChatItemState.SendMessageSuccess
             }
     }
 
-    private fun listenToMessages() {
+    fun listenToMessages() {
         _chatItemState.value = ChatItemState.Loading
-        userRepository.getPrivateChannelMessages().addSnapshotListener { value, e ->
-            if (e != null) {
-                _chatItemState.value = ChatItemState.Failure("Listen has failed")
-                return@addSnapshotListener
-            }
-            if (auth.currentUser == null) {
-                _chatItemState.value = ChatItemState.Failure("Current user is null")
-                return@addSnapshotListener
-            }
+        userRepository.getPrivateChannelMessages()
+            .orderBy(DatabaseConstants.TIMESTAMP, Query.Direction.ASCENDING)
+            .addSnapshotListener { value, e ->
+                if (e != null) {
+                    _chatItemState.value = ChatItemState.Failure("Listen has failed")
+                    return@addSnapshotListener
+                }
+                if (auth.currentUser == null) {
+                    _chatItemState.value = ChatItemState.Failure("Current user is null")
+                    return@addSnapshotListener
+                }
 
-            val data = ArrayList<PrivateChatMessage>()
-            for (doc in value!!) {
-                data.add(doc.toObject(PrivateChatMessage::class.java))
-            }
-            messages.postValue(data)
+                val data = ArrayList<PrivateChatMessage>()
+                for (doc in value!!) {
+                    data.add(doc.toObject(PrivateChatMessage::class.java))
+                }
+                messages.postValue(data)
 
-            if (messages.value?.size == 0) {
-                _chatItemState.value = ChatItemState.Empty
-                return@addSnapshotListener
-            }
+                if (messages.value?.size == 0) {
+                    _chatItemState.value = ChatItemState.Empty
+                    return@addSnapshotListener
+                }
 
-            _chatItemState.value = ChatItemState.Success
-        }
+                _chatItemState.value = ChatItemState.Success
+            }
     }
 
     sealed class ChatItemState {
