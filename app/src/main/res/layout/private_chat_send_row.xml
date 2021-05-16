@@ -25,7 +25,7 @@
             android:background="@drawable/gray_button"
             android:maxWidth="@dimen/_240sdp"
             android:padding="@dimen/_10sdp"
-            android:text="@{message.text}"
+            android:text="@{message.message}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
