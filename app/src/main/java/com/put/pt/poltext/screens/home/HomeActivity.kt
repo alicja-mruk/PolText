@@ -2,6 +2,7 @@ package com.put.pt.poltext.screens.home
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.View
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
@@ -66,10 +67,13 @@ class HomeActivity : BaseActivity(), ProfileFragment.Listener, EditProfileFragme
                     2 -> {
                         navController.navigate(R.id.profileFragment)
                     }
+                    3 -> {
+                        navController.navigate(R.id.helpFragment)
+                    }
                 }
                 updateAdapter(position)
 
-                Handler().postDelayed({
+                Handler(Looper.getMainLooper()).postDelayed({
                     drawerLayout.closeDrawer(GravityCompat.START)
                 }, 200)
             }

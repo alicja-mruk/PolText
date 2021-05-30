@@ -24,12 +24,7 @@ class ChatPublicFragment : Fragment() {
     private var adapter: ChatPublicAdapter? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        binding.recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                context,
-                DividerItemDecoration.VERTICAL
-            )
-        )
+        binding.recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         initializeFragment()
     }
 
@@ -58,7 +53,7 @@ class ChatPublicFragment : Fragment() {
                 binding.message.setText("")
             })
             notifyDataSetChanged.observe(viewLifecycleOwner, {
-                adapter?.notifyDataSetChanged()
+                adapter?.notifyItemInserted(binding.recyclerView.adapter!!.itemCount - 1)
                 binding.recyclerView.scrollToPosition(binding.recyclerView.adapter!!.itemCount - 1)
             })
             state.observe(viewLifecycleOwner, { state ->
@@ -114,7 +109,7 @@ class ChatPublicFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentChatPublicBinding.inflate(inflater, container, false)
         return binding.root
     }
