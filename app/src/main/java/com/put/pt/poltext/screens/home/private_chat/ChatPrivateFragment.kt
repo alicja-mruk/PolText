@@ -49,6 +49,11 @@ class ChatPrivateFragment : Fragment() {
                     }
                 }
             })
+            notifyDataSetChanged.observe(viewLifecycleOwner, {
+                messageAdapter.notifyItemInserted(binding.recyclerView.adapter!!.itemCount - 1)
+                binding.recyclerView.scrollToPosition(binding.recyclerView.adapter!!.itemCount - 1)
+            })
+
             chatItemState.observe(viewLifecycleOwner, { state ->
                 when (state) {
                     is PrivateChatViewModel.ChatItemState.Empty -> {

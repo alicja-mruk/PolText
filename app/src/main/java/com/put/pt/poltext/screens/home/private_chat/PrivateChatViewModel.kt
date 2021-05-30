@@ -1,10 +1,12 @@
 package com.put.pt.poltext.screens.home.private_chat
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.firestore.ktx.toObjects
+import com.put.pt.poltext.common.SingleLiveEvent
 import com.put.pt.poltext.data.firebase.common.auth
 import com.put.pt.poltext.model.PrivateChatMessage
 import com.put.pt.poltext.model.User
@@ -19,6 +21,8 @@ class PrivateChatViewModel(private val userRepository: FirebaseUsersRepositoryIm
     val users = MutableLiveData<ArrayList<User>>()
     val currentUser = MutableLiveData<User>()
     val messages = MutableLiveData<ArrayList<PrivateChatMessage>>()
+    private val _notifyDataSetChanged = SingleLiveEvent<Unit>()
+    val notifyDataSetChanged: LiveData<Unit> = _notifyDataSetChanged
     private val _state = MutableLiveData(State.EMPTY)
     val state = _state
 
@@ -99,6 +103,7 @@ class PrivateChatViewModel(private val userRepository: FirebaseUsersRepositoryIm
                 }
 
                 _chatItemState.value = ChatItemState.Success
+                _notifyDataSetChanged.value = Unit
             }
     }
 
