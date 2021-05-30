@@ -1,6 +1,5 @@
 package com.put.pt.poltext.screens.home.private_chat.row_adapters
 
-import com.bumptech.glide.Glide
 import com.put.pt.poltext.R
 import com.put.pt.poltext.databinding.PrivateChatReceivedRowBinding
 import com.put.pt.poltext.databinding.PrivateChatSendRowBinding

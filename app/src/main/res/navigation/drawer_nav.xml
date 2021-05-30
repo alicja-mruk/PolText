@@ -39,5 +39,10 @@
         android:name="com.put.pt.poltext.screens.home.private_chat.ChatPrivateFragmentLobby"
         android:label="fragment_chat_private_lobby"
         tools:layout="@layout/fragment_chat_private_lobby" />
+    <fragment
+        android:id="@+id/helpFragment"
+        android:name="com.put.pt.poltext.screens.home.settings.HelpFragment"
+        android:label="fragment_help"
+        tools:layout="@layout/fragment_help" />
 
 </navigation>

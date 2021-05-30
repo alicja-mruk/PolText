@@ -8,6 +8,7 @@ class NavigationItems {
             NavigationItemModel(R.drawable.ic_chat_private, "Private Chat"),
             NavigationItemModel(R.drawable.ic_chat_public, "Public Chat"),
             NavigationItemModel(R.drawable.ic_profile, "Profile"),
+            NavigationItemModel(R.drawable.ic_help, "Help"),
         )
     }
 }
